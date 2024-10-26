@@ -1,4 +1,3 @@
-// src/app/home/home.js
 "use client";
 
 import { useState } from 'react';
@@ -10,7 +9,7 @@ import { BiDrink } from "react-icons/bi";
 import { LiaChairSolid } from "react-icons/lia";
 import { FiUser } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
-import { useRouter } from 'next/navigation'; // Corrigido para o App Router
+import { useRouter } from 'next/navigation'; 
 
 const Home = () => {
   const router = useRouter();
@@ -20,14 +19,14 @@ const Home = () => {
     setShowMenu(!showMenu);
   };
 
-  // Função para redirecionar para a página de Bebidas
+  
   const goToBebidas = () => {
-    router.push('/components/bebidas'); // Verifique se o caminho está correto
+    router.push('/components/bebidas'); 
   };
 
-  // Função para redirecionar para a página inicial ao clicar na logo
+  
   const goToHome = () => {
-    router.push('/'); // Redireciona para a página inicial
+    router.push('/'); 
   };
 
   return (
@@ -38,12 +37,12 @@ const Home = () => {
           <img
             className="logo"
             src="https://img.icons8.com/?size=100&id=jnZk3TAlyedN&format=png&color=FAB005"
-            alt="Logo do Bar do Jao"
+            alt="Logo do Bar"
           />
         </div>
       </div>
 
-      <h1 className="smaller-title mt-4">Bem-vindo ao Bar do Jao!</h1>
+      <h1 className="smaller-title mt-4">Bem-vindo ao Bar!</h1>
 
       {showMenu && (
         <div className="menu">
