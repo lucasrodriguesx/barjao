@@ -1,0 +1,128 @@
+/* src/app/home.css */
+
+/* Estilos gerais */
+body {
+  background-color: black;
+  color: white;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.home {
+  text-align: center;
+}
+
+/* Cabeçalho */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo-container {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.logo {
+  width: 80px;
+}
+
+.smaller-title {
+  font-size: 1.5rem;
+  color: orange;
+  margin-top: 10px;
+}
+
+/* Carrossel de Imagens */
+.custom-image {
+  width: 650px; /* Define uma largura fixa */
+  height: 650px; /* Define uma altura fixa */
+  object-fit: cover; /* Ajusta a imagem para preencher o espaço */
+  margin: 20px auto;
+  border: 3px solid orange;
+}
+
+/* Ícone do menu */
+.menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  color: orange;
+}
+
+/* Menu Lateral */
+.menu {
+  position: absolute; /* Faz o menu flutuar em relação ao header */
+  top: 60px; /* Distância do topo */
+  left: 20px; /* Alinha o menu à esquerda */
+  background-color: rgba(255, 165, 0, 0.8); /* Fundo semi-transparente */
+  border-radius: 5px; /* Bordas arredondadas */
+  padding: 10px; /* Espaçamento interno */
+  text-align: left; /* Texto alinhado à esquerda */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para destaque */
+}
+
+.menu ul {
+  list-style-type: none; /* Remove marcadores */
+  padding: 0; /* Remove espaçamento */
+  display: flex;
+  flex-direction: column; /* Coloca os itens em coluna */
+  gap: 10px; /* Espaçamento entre os itens */
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Alinha os ícones à esquerda */
+  color: black; /* Cor do texto */
+  position: relative; /* Para o tooltip aparecer */
+}
+
+.menu-icon-item {
+  font-size: 1.5rem; /* Tamanho dos ícones */
+  color: #333; /* Cor padrão dos ícones */
+  transition: color 0.2s ease; /* Transição suave na cor */
+}
+
+.menu-icon-item:hover {
+  color: orange; /* Cor ao passar o mouse */
+}
+
+.menu li[title]:hover::after {
+  content: attr(title); /* Tooltip com o título do item */
+  position: absolute;
+  left: 40px; /* Espaçamento à esquerda do ícone */
+  color: orange; /* Cor do texto do tooltip */
+  font-size: 0.9rem; /* Tamanho da fonte do tooltip */
+  background: rgba(0, 0, 0, 0.8); /* Fundo do tooltip */
+  padding: 3px 5px; /* Espaçamento interno do tooltip */
+  border-radius: 3px; /* Bordas arredondadas do tooltip */
+}
+
+/* Rodapé */
+.footer {
+  margin-top: 20px;
+}
+
+.info-list {
+  list-style-type: none; /* Remove marcadores */
+  padding: 0; /* Remove espaçamento */
+  color: white; /* Cor do texto */
+  text-align: center; /* Centraliza o texto */
+}
+
+.info-list li {
+  margin: 5px 0; /* Espaçamento entre os itens */
+  font-size: 1rem; /* Tamanho da fonte */
+}
+
+.info-list li a {
+  color: orange; /* Cor dos links */
+  text-decoration: none; /* Remove sublinhado */
+  transition: color 0.3s; /* Transição suave na cor */
+}
+
+.info-list li a:hover {
+  color: #ff6600; /* Cor ao passar o mouse */
+}
