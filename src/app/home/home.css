@@ -44,6 +44,21 @@ body {
   border: 3px solid orange;
 }
 
+/* Estilização para centralizar as setas do carrossel e deixá-las mais próximas das fotos */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 2%; /* Aproxima as setas ainda mais das imagens */
+  top: 50%; /* Centraliza verticalmente */
+  transform: translateY(-50%); /* Ajusta o centro para o meio */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background: none; /* Remove a cor de fundo */
+  padding: 10px; /* Tamanho do ícone */
+  font-size: 1.5rem; /* Aumenta o tamanho do ícone */
+}
+
 /* Ícone do menu */
 .menu-icon {
   font-size: 2rem;
@@ -55,7 +70,7 @@ body {
 .menu {
   position: absolute; /* Faz o menu flutuar em relação ao header */
   top: 60px; /* Distância do topo */
-  left: 20px; /* Alinha o menu à esquerda */
+  left: 10px; /* Alinha o menu à esquerda */
   background-color: rgba(255, 165, 0, 0.8); /* Fundo semi-transparente */
   border-radius: 5px; /* Bordas arredondadas */
   padding: 10px; /* Espaçamento interno */
@@ -81,7 +96,7 @@ body {
 
 .menu-icon-item {
   font-size: 1.5rem; /* Tamanho dos ícones */
-  color: #333; /* Cor padrão dos ícones */
+  color: #000000; /* Cor padrão dos ícones */
   transition: color 0.2s ease; /* Transição suave na cor */
 }
 

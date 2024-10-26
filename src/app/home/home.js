@@ -1,4 +1,4 @@
-// src/app/Home.js
+// src/app/home/home.js
 "use client";
 
 import { useState } from 'react';
@@ -10,25 +10,31 @@ import { BiDrink } from "react-icons/bi";
 import { LiaChairSolid } from "react-icons/lia";
 import { FiUser } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
-import bebidas from '../components/bebidas/bebidas';
+import { useRouter } from 'next/navigation'; // Corrigido para o App Router
 
 const Home = () => {
-  const [showMenu, setShowMenu] = useState(false); // Controla a visibilidade do menu
-  const [showBebidas, setShowBebidas] = useState(false); // Controla a visibilidade do componente de Bebidas
+  const router = useRouter();
+  const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
-    setShowMenu(!showMenu); // Alterna a visibilidade do menu
+    setShowMenu(!showMenu);
   };
 
-  const toggleBebidas = () => {
-    setShowBebidas(!showBebidas); // Alterna a visibilidade do componente de Bebidas
+  // Função para redirecionar para a página de Bebidas
+  const goToBebidas = () => {
+    router.push('/components/bebidas'); // Verifique se o caminho está correto
+  };
+
+  // Função para redirecionar para a página inicial ao clicar na logo
+  const goToHome = () => {
+    router.push('/'); // Redireciona para a página inicial
   };
 
   return (
     <div className="home">
       <div className="header">
         <FiAlignJustify className="menu-icon" onClick={toggleMenu} />
-        <div className="logo-container">
+        <div className="logo-container" onClick={goToHome}>
           <img
             className="logo"
             src="https://img.icons8.com/?size=100&id=EOfiorApOhan&format=png&color=ffa500"
@@ -48,7 +54,7 @@ const Home = () => {
             <li title="Reserve a sua Mesa">
               <LiaChairSolid className="menu-icon-item" />
             </li>
-            <li title="Bebidas" onClick={toggleBebidas}>
+            <li title="Bebidas" onClick={goToBebidas}>
               <BiDrink className="menu-icon-item" />
             </li>
             <li title="Pedido">
@@ -58,9 +64,7 @@ const Home = () => {
         </div>
       )}
 
-      {showBebidas && <Bebidas />} {/* Adicionando o componente de Bebidas aqui */}
-
-      <Carousel className="mt-4">
+      <Carousel className="mt-4" interval={100} fade>
         <Carousel.Item>
           <img
             className="d-block custom-image"
