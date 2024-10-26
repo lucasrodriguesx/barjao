@@ -37,7 +37,7 @@ const Home = () => {
         <div className="logo-container" onClick={goToHome}>
           <img
             className="logo"
-            src="https://img.icons8.com/?size=100&id=EOfiorApOhan&format=png&color=ffa500"
+            src="https://img.icons8.com/?size=100&id=jnZk3TAlyedN&format=png&color=FAB005"
             alt="Logo do Bar do Jao"
           />
         </div>
