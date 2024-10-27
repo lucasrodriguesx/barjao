@@ -176,7 +176,20 @@ const Bebidas = () => {
           <Button variant="primary">Confirmar Pedido</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+     {/* rodapezin */}
+     <div className="footer mt-4">
+     <h2 className="informacoes">Informações</h2>
+     <ul className="info-list">
+       <li>Ano de Fundação: 2024</li>
+       <li>Redes Sociais:</li>
+       <li>
+         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
+         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
+         <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+       </li>
+     </ul>
+   </div>
+ </div>
   );
 };
 

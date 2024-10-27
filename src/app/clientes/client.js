@@ -144,7 +144,7 @@ const Client = () => {
           </span>
         </p>
 
-        {/* Lista de Clientes - Movido para baixo */}
+        {/* Clientes */}
         <div className="client-list">
           <h2>Lista de Clientes</h2>
           {clients.length === 0 ? (
@@ -161,6 +161,20 @@ const Client = () => {
             </ul>
           )}
         </div>
+      </div>
+
+      {/* rodapezin */}
+      <div className="footer mt-4">
+        <h3 className="informacoes">Informações</h3>
+        <ul className="info-list">
+          <li>Ano de Fundação: 2024</li>
+          <li>Redes Sociais:</li>
+          <li>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
+            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </li>
+        </ul>
       </div>
     </div>
   );

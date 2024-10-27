@@ -1,29 +1,28 @@
-/* Estilo geral da página */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #000; /* Fundo preto */
-    color: #FFA500; /* Texto laranja */
+    background-color: #000; 
+    color: #FFA500; 
 }
 
-/* Estilo para o ícone de menu */
+
 .menu-toggle-icon {
     position: absolute;
     top: 20px;
     left: 20px;
-    color: #FFA500; /* Ícone do menu em laranja */
+    color: #FFA500; 
     font-size: 30px;
     cursor: pointer;
 }
 
-/* Estilo para o menu vertical */
+
 .vertical-menu {
     position: absolute;
     top: 60px;
     left: 20px;
     width: 60px;
-    background-color: #FFA500; /* Fundo do menu em laranja */
+    background-color: #FFA500; 
     border-radius: 10px;
     padding: 10px 0;
 }
@@ -40,7 +39,7 @@ body {
 }
 
 .menu-icon-item {
-    color: #000; /* Ícones pretos */
+    color: #000; 
     font-size: 24px;
     cursor: pointer;
     transition: color 0.3s;
@@ -50,54 +49,54 @@ body {
     color: #333;
 }
 
-/* Estilo para o conteúdo principal */
+
 .main-container {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     position: relative;
-    background-color: #000; /* Fundo preto */
-    flex-direction: column; /* Coluna para centralizar a logo e o conteúdo */
+    background-color: #000; 
+    flex-direction: column; 
 }
 
-/* Estilo para a logo centralizada */
+
 .logo {
     width: 100px;
     height: auto;
     margin-bottom: 20px;
-    cursor: pointer; /* Cursor de ponteiro para a logo */
+    cursor: pointer; 
 }
 
-/* Estilo para a mensagem de sucesso */
+
 .success-message {
-    background-color: #333; /* Fundo da mensagem em preto */
-    color: #FFA500; /* Texto laranja */
+    background-color: #333; 
+    color: #FFA500; 
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
     position: absolute;
-    top: 100px; /* Posição fixa para a mensagem */
+    top: 100px; 
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
 }
 
-/* Estilo para o formulário de login/cadastro */
+
 .content-wrapper {
-    background-color: #000; /* Fundo do formulário em preto */
-    border: 2px solid #FFA500; /* Borda laranja */
+    background-color: #000; 
+    border: 2px solid #FFA500; 
     padding: 40px;
     border-radius: 10px;
     text-align: center;
     max-width: 400px;
     width: 100%;
-    color: #FFA500; /* Texto laranja */
+    color: #FFA500; 
 }
 
 h1 {
     margin-bottom: 20px;
-    color: #FFA500; /* Título em laranja */
+    color: #FFA500; 
 }
 
 form {
@@ -108,56 +107,56 @@ form {
 input {
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #FFA500; /* Borda laranja */
+    border: 1px solid #FFA500; 
     border-radius: 5px;
-    background-color: #222; /* Fundo do input em preto */
-    color: #FFA500; /* Texto laranja */
+    background-color: #222; 
+    color: #FFA500; 
 }
 
 input::placeholder {
-    color: #FFA500; /* Placeholder em laranja */
+    color: #FFA500; 
 }
 
 button {
     padding: 10px;
-    background-color: #FFA500; /* Fundo do botão em laranja */
+    background-color: #FFA500; 
     border: none;
     border-radius: 5px;
-    color: #000; /* Texto do botão em preto */
+    color: #000; 
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #ff8c00; /* Cor do botão ao passar o mouse */
+    background-color: #ff8c00; 
 }
 
-/* Estilo para a lista de clientes */
+
 .client-list {
     margin-top: 20px;
-    text-align: left; /* Alinha o texto à esquerda */
-    color: #FFA500; /* Texto laranja */
+    text-align: left; 
+    color: #FFA500; 
 }
 
 .client-list h2 {
     margin: 20px 0;
-    color: #FFA500; /* Título da lista em laranja */
+    color: #FFA500; 
 }
 
 .client-list ul {
-    list-style-type: none; /* Remove marcadores da lista */
+    list-style-type: none; 
     padding: 0;
 }
 
 .client-list li {
     display: flex;
-    justify-content: space-between; /* Espaça os itens da lista */
-    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; 
+    align-items: center; 
     padding: 10px;
-    border: 1px solid #FFA500; /* Borda laranja */
+    border: 1px solid #FFA500; 
     border-radius: 5px;
     margin-bottom: 10px;
-    background-color: #222; /* Fundo dos itens em preto */
+    background-color: #222; 
 }
 
 .edit-button, .delete-button {
@@ -169,19 +168,50 @@ button:hover {
 }
 
 .edit-button {
-    background-color: #FFA500; /* Fundo do botão de editar em laranja */
-    color: #000; /* Texto do botão de editar em preto */
+    background-color: #FFA500; 
+    color: #000; 
 }
 
 .edit-button:hover {
-    background-color: #ff8c00; /* Cor ao passar o mouse */
+    background-color: #ff8c00; 
 }
 
 .delete-button {
-    background-color: #ff4d4d; /* Fundo do botão de excluir em vermelho */
-    color: #fff; /* Texto do botão de excluir em branco */
+    background-color: #ff4d4d; 
+    color: #fff; 
 }
 
 .delete-button:hover {
-    background-color: #ff1a1a; /* Cor ao passar o mouse */
+    background-color: #ff1a1a; 
 }
+
+ .footer {
+    margin-top: 20px;
+  }
+  
+  .info-list {
+    list-style-type: none; 
+    padding: 0; 
+    color: white; 
+    text-align: center; 
+  
+  }
+  
+  .info-list li {
+    margin: 5px 0; 
+    font-size: 1rem; 
+  }
+  
+  .info-list li a {
+    color: orange; 
+    text-decoration: none; 
+    transition: color 0.3s; 
+  }
+  
+  .info-list li a:hover {
+    color: #ff6600; 
+  }
+  
+  .informacoes {
+  text-align: center;
+  }

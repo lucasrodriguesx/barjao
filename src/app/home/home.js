@@ -24,7 +24,7 @@ const Home = () => {
   };
 
   const goToClientes = () => {
-    router.push('../clientes'); // Navega para a página de clientes
+    router.push('../clientes'); 
   };
 
   const goToHome = () => {

@@ -1,4 +1,4 @@
-"use client"; // Habilita o uso do estado e hooks
+"use client"; 
 
 import Bebidas from './bebidas';
 import React from 'react';
