@@ -1,0 +1,187 @@
+/* Estilo geral da página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000; /* Fundo preto */
+    color: #FFA500; /* Texto laranja */
+}
+
+/* Estilo para o ícone de menu */
+.menu-toggle-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #FFA500; /* Ícone do menu em laranja */
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Estilo para o menu vertical */
+.vertical-menu {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    width: 60px;
+    background-color: #FFA500; /* Fundo do menu em laranja */
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.vertical-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.vertical-menu li {
+    margin: 15px 0;
+}
+
+.menu-icon-item {
+    color: #000; /* Ícones pretos */
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.menu-icon-item:hover {
+    color: #333;
+}
+
+/* Estilo para o conteúdo principal */
+.main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    background-color: #000; /* Fundo preto */
+    flex-direction: column; /* Coluna para centralizar a logo e o conteúdo */
+}
+
+/* Estilo para a logo centralizada */
+.logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    cursor: pointer; /* Cursor de ponteiro para a logo */
+}
+
+/* Estilo para a mensagem de sucesso */
+.success-message {
+    background-color: #333; /* Fundo da mensagem em preto */
+    color: #FFA500; /* Texto laranja */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 100px; /* Posição fixa para a mensagem */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* Estilo para o formulário de login/cadastro */
+.content-wrapper {
+    background-color: #000; /* Fundo do formulário em preto */
+    border: 2px solid #FFA500; /* Borda laranja */
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    color: #FFA500; /* Texto laranja */
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #FFA500; /* Título em laranja */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #FFA500; /* Borda laranja */
+    border-radius: 5px;
+    background-color: #222; /* Fundo do input em preto */
+    color: #FFA500; /* Texto laranja */
+}
+
+input::placeholder {
+    color: #FFA500; /* Placeholder em laranja */
+}
+
+button {
+    padding: 10px;
+    background-color: #FFA500; /* Fundo do botão em laranja */
+    border: none;
+    border-radius: 5px;
+    color: #000; /* Texto do botão em preto */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff8c00; /* Cor do botão ao passar o mouse */
+}
+
+/* Estilo para a lista de clientes */
+.client-list {
+    margin-top: 20px;
+    text-align: left; /* Alinha o texto à esquerda */
+    color: #FFA500; /* Texto laranja */
+}
+
+.client-list h2 {
+    margin: 20px 0;
+    color: #FFA500; /* Título da lista em laranja */
+}
+
+.client-list ul {
+    list-style-type: none; /* Remove marcadores da lista */
+    padding: 0;
+}
+
+.client-list li {
+    display: flex;
+    justify-content: space-between; /* Espaça os itens da lista */
+    align-items: center; /* Alinha verticalmente */
+    padding: 10px;
+    border: 1px solid #FFA500; /* Borda laranja */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #222; /* Fundo dos itens em preto */
+}
+
+.edit-button, .delete-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-button {
+    background-color: #FFA500; /* Fundo do botão de editar em laranja */
+    color: #000; /* Texto do botão de editar em preto */
+}
+
+.edit-button:hover {
+    background-color: #ff8c00; /* Cor ao passar o mouse */
+}
+
+.delete-button {
+    background-color: #ff4d4d; /* Fundo do botão de excluir em vermelho */
+    color: #fff; /* Texto do botão de excluir em branco */
+}
+
+.delete-button:hover {
+    background-color: #ff1a1a; /* Cor ao passar o mouse */
+}

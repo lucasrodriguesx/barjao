@@ -19,12 +19,14 @@ const Home = () => {
     setShowMenu(!showMenu);
   };
 
-  
   const goToBebidas = () => {
-    router.push('/components/bebidas'); 
+    router.push('../bebidas'); 
   };
 
-  
+  const goToClientes = () => {
+    router.push('../clientes'); // Navega para a página de clientes
+  };
+
   const goToHome = () => {
     router.push('/'); 
   };
@@ -43,11 +45,11 @@ const Home = () => {
       </div>
 
       <h1 className="smaller-title mt-4">Bem-vindo ao Bar!</h1>
-
+      
       {showMenu && (
         <div className="menu">
           <ul>
-            <li title="Login">
+            <li title="Login" onClick={goToClientes}> {/* Navega para a página de clientes */}
               <FiUser className="menu-icon-item" />
             </li>
             <li title="Reserve a sua Mesa">

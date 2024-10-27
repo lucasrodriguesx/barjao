@@ -1,0 +1,117 @@
+/* src/app/components/bebidas/bebidas.css */
+
+.bebidas {
+    background-color: #000; /* Fundo preto para a página de Bebidas */
+    color: #ffa500; /* Texto laranja */
+    padding: 20px; /* Adicionando um pouco de espaço interno */
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alinha a logo e o ícone do menu nas extremidades */
+  }
+  
+  .logo-container {
+    cursor: pointer; /* Para indicar que a logo é clicável */
+  }
+  
+  .menu {
+    position: absolute; /* Para colocar o menu sobre o conteúdo */
+    top: 60px; /* Ajuste conforme necessário */
+    left: 0; /* Manter à esquerda */
+    background-color: #000; /* Fundo preto para o menu */
+    border: 1px solid #ffa500; /* Borda laranja */
+    z-index: 1000; /* Certifique-se de que o menu fique acima de outros elementos */
+  }
+  
+  .bebidas-container {
+    display: flex; /* Usando flexbox para alinhar os cards lado a lado */
+    flex-wrap: wrap; /* Permitir que os cards se movam para uma nova linha se necessário */
+    justify-content: flex-start; /* Alinha os cards à esquerda */
+    gap: 10px; /* Espaçamento entre os cards */
+  }
+  
+  .bebida {
+    width: calc(20% - 10px); /* Largura de 20% menos o espaço entre os cards */
+    background-color: #222; /* Fundo um pouco mais claro para os cards */
+    color: #ffa500; /* Texto laranja */
+    border: 2px solid #ffa500; /* Borda laranja */
+    padding: 5px; /* Espaço interno nos cards */
+    cursor: pointer; /* Para indicar que o card é clicável */
+    transition: transform 0.2s; /* Efeito ao passar o mouse */
+    box-sizing: border-box; /* Inclui borda e padding no cálculo de largura */
+    min-width: 100px; /* Largura mínima para os cards */
+  }
+  
+  .bebida:hover {
+    transform: scale(1.10); /* Aumenta o tamanho do card ao passar o mouse */
+  }
+  
+  .bebida img {
+    height: 191px; /* Tamanho aumentado da imagem */
+    object-fit: cover; /* Para manter a proporção da imagem */
+    border-radius: 5%; /* Bordas redondas (circular) */
+  }
+  
+  .bebida-nome {
+    font-size: 1rem; /* Tamanho reduzido da fonte do nome */
+    text-align: center; /* Centraliza o texto */
+  }
+  
+  .bebida-descricao {
+    font-size: 0.85rem; /* Tamanho reduzido da fonte da descrição */
+    text-align: center; /* Centraliza o texto */
+  }
+  
+  /* Estilizando os botões */
+  .bebida-botoes {
+    display: flex; /* Flexbox para os botões */
+    justify-content: space-between; /* Distribui os botões uniformemente */
+    margin-top: 10px; /* Espaço acima dos botões */
+    width: 100%; /* Faz os botões ocuparem toda a largura do card */
+  }
+  
+  .btn-primary {
+    background-color: #000; /* Fundo preto para os botões */
+    border-color: #ffa500; /* Borda laranja */
+  }
+  
+  .btn-primary:hover {
+    background-color: #ffa500; /* Fundo laranja ao passar o mouse */
+    color: #000; /* Texto preto */
+  }
+  
+  .btn-secondary {
+    background-color: #000; /* Fundo preto para os botões secundários */
+    border-color: #ffa500; /* Borda laranja */
+  }
+  
+  .btn-secondary:hover {
+    background-color: #ffa500; /* Fundo laranja ao passar o mouse */
+    color: #000; /* Texto preto */
+  }
+  
+  .btn-danger {
+    background-color: #000; /* Fundo preto para o botão de excluir */
+    border-color: #ff0000; /* Borda vermelha */
+  }
+  
+  .btn-danger:hover {
+    background-color: #ff0000; /* Fundo vermelho ao passar o mouse */
+    color: #fff; /* Texto branco */
+  }
+  .modal-content {
+    background-color: black; /* Fundo preto */
+    color: orange; /* Texto laranja */
+  }
+  
+  .modal-header, .modal-footer {
+    border: none; /* Remove a borda padrão */
+  }
+  
+  .modal-title {
+    color: orange; /* Título laranja */
+  }
+  
+  

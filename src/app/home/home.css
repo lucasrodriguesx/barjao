@@ -101,7 +101,7 @@ body {
 }
 
 .menu-icon-item:hover {
-  color: orange; /* Cor ao passar o mouse */
+  color: #ffa500; /* Cor ao passar o mouse */
 }
 
 .menu li[title]:hover::after {
