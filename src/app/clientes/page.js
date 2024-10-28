@@ -1,4 +1,4 @@
-"use cliente"
+"use client";
 import Client from './client';
 
 const Page = () => {

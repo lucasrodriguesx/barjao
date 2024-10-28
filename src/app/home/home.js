@@ -65,7 +65,7 @@ const Home = () => {
         </div>
       )}
 
-      <Carousel className="mt-4" interval={100} fade>
+      <Carousel className="mt-4" interval={0} fade>
         <Carousel.Item>
           <img
             className="d-block custom-image"
