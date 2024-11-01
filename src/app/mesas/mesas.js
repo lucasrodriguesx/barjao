@@ -24,6 +24,8 @@ const Mesa = () => {
   const [currentMesa, setCurrentMesa] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newMesaTitle, setNewMesaTitle] = useState('');
+  const [showPedidoModal, setShowPedidoModal] = useState(false);
+  const [pedidoInfo, setPedidoInfo] = useState({ nome: '', telefone: '', quantidade: '', adicionais: '' });
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -70,9 +72,10 @@ const Mesa = () => {
     }
   };
 
-  const confirmMesa = () => {
-    alert(`Pedido da mesa "${currentMesa.title}" confirmado!`);
-    setShowModal(false);
+  const confirmPedido = () => {
+    alert(`Pedido da mesa "${currentMesa.title}" confirmado para ${pedidoInfo.nome}!`);
+    setShowPedidoModal(false);
+    setPedidoInfo({ nome: '', telefone: '', quantidade: '', adicionais: '' });
   };
 
   return (
@@ -124,6 +127,7 @@ const Mesa = () => {
           ))}
         </div>
         <button onClick={addMesa} className="btn-add">Adicionar Mesa</button>
+        <button onClick={() => setShowPedidoModal(true)} className="btn-pedir">Pedir</button>
       </div>
 
       {showAddModal && (
@@ -144,18 +148,37 @@ const Mesa = () => {
         </div>
       )}
 
-      {showModal && (
+      {showPedidoModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>{currentMesa?.title}</h3>
+            <h3>Pedir para {currentMesa?.title}</h3>
             <input
               type="text"
-              placeholder="Editar nome da mesa"
-              onChange={(e) => editMesaTitle(e.target.value)}
+              placeholder="Nome Completo"
+              value={pedidoInfo.nome}
+              onChange={(e) => setPedidoInfo({ ...pedidoInfo, nome: e.target.value })}
+            />
+            <input
+              type="tel"
+              placeholder="Telefone"
+              value={pedidoInfo.telefone}
+              onChange={(e) => setPedidoInfo({ ...pedidoInfo, telefone: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Quantidade de Pessoas"
+              value={pedidoInfo.quantidade}
+              onChange={(e) => setPedidoInfo({ ...pedidoInfo, quantidade: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Informações Adicionais"
+              value={pedidoInfo.adicionais}
+              onChange={(e) => setPedidoInfo({ ...pedidoInfo, adicionais: e.target.value })}
             />
             <div className="button-container">
-              <button onClick={removeMesa} className="btn-remove">Excluir Mesa</button>
-              <button onClick={confirmMesa} className="btn-confirm">Confirmar Pedido da Mesa</button>
+              <button onClick={confirmPedido} className="btn-confirm">Confirmar Pedido</button>
+              <button onClick={() => setShowPedidoModal(false)} className="btn-remove">Cancelar</button>
             </div>
           </div>
         </div>

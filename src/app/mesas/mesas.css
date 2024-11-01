@@ -1,89 +1,137 @@
-body {
-    background-color: black;
-    color: white;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
+/* Estilos gerais */
 .mesa {
-    text-align: center;
-}
-
-.header {
+    background-color: #000; /* Fundo preto */
+    color: #FFA500; /* Texto laranja */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Estilos do cabeçalho */
+  .header {
     display: flex;
     justify-content: space-between;
+    width: 100%;
     align-items: center;
-    padding: 10px 20px;
-}
-
-.logo-container {
-    flex-grow: 1;
-    text-align: center;
-}
-
-.logo {
-    width: 80px;
-}
-
-.smaller-title {
-    font-size: 1.5rem;
-    color: orange;
-    margin-top: 10px;
-}
-
-.reservation-container {
-    margin: 20px auto;
-}
-
-.reservation-title {
-    font-size: 1.2rem;
-    color: orange;
-}
-
-.mesas {
+    padding: 10px;
+  }
+  
+  .menu-icon {
+    color: #FFA500; /* Laranja */
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .logo-container {
     display: flex;
-    gap: 15px;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.mesa-item {
-    background-color: transparent;
-    color: orange;
-    padding: 20px;
-    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .logo {
+    max-width: 50px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-.mesa-item:hover {
-    transform: scale(1.05);
-}
-
-.selected {
-    background-color: orange;
-    color: black;
-}
-
-.btn-add, .btn-remove, .btn-confirm {
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: orange;
-    color: black;
+  }
+  
+  /* Menu suspenso */
+  .menu {
+    background-color: #000;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    padding: 10px;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu ul li {
+    margin: 10px 0;
+  }
+  
+  .menu-icon-item {
+    color: #FFA500; /* Laranja */
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Título menor */
+  .smaller-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFA500;
+  }
+  
+  /* Botões */
+  .btn-add,
+  .btn-pedir {
+    background-color: #FFA500; /* Laranja */
+    color: #000; /* Preto */
     border: none;
-    cursor: pointer;
+    padding: 10px 20px;
     border-radius: 5px;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-.btn-add:hover, .btn-remove:hover, .btn-confirm:hover {
-    background-color: #ffa500;
-    color: white;
-}
-
-.modal-overlay {
+    cursor: pointer;
+    margin: 10px;
+    font-weight: bold;
+  }
+  
+  .btn-add:hover,
+  .btn-pedir:hover {
+    background-color: #e59400; /* Laranja mais escuro */
+  }
+  
+  /* Container de mesas */
+  .reservation-container {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .reservation-title {
+    color: #FFA500;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .mesas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  /* Item de mesa */
+  .mesa-item {
+    background-color: #000;
+    border: 2px solid #FFA500;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .mesa-item:hover {
+    transform: scale(1.1);
+  }
+  
+  .mesa-item.selected {
+    border-color: #fff;
+  }
+  
+  /* Modais */
+  .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -93,19 +141,95 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
-}
-
-.modal-content {
-    background-color: white;
-    color: black;
-    padding: 20px;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #000;
+    border: 2px solid #FFA500;
     border-radius: 10px;
-    text-align: center;
-    width: 300px;
-}
-
-.button-container {
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    color: #FFA500;
+  }
+  
+  .modal-content h3 {
+    font-size: 18px;
+    color: #FFA500;
+    margin-bottom: 15px;
+  }
+  
+  .modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+    background-color: #222;
+    color: #FFA500;
+  }
+  
+  .button-container {
     display: flex;
     justify-content: space-between;
-}
+  }
+  
+  .btn-confirm,
+  .btn-remove {
+    padding: 8px 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-confirm {
+    background-color: #FFA500;
+    color: #000;
+  }
+  
+  .btn-remove {
+    background-color: #333;
+    color: #FFA500;
+  }
+  
+  .btn-confirm:hover {
+    background-color: #e59400;
+  }
+  
+  .btn-remove:hover {
+    background-color: #444;
+  }
+  
+  /* Rodapé */
+  .footer {
+    margin-top: 20px;
+  }
+  
+  .info-list {
+    list-style-type: none; 
+    padding: 0; 
+    color: white; 
+    text-align: center; 
+  }
+  
+  .info-list li {
+    margin: 5px 0; 
+    font-size: 1rem; 
+  }
+  
+  .info-list li a {
+    color: orange; 
+    text-decoration: none; 
+    transition: color 0.3s; 
+  }
+  
+  .info-list li a:hover {
+    color: #ff6600; 
+  }
+  .smaller-title {
+    color:#fff;
+    text-align: center; 
+  }
+  
