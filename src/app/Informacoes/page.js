@@ -1,12 +1,13 @@
 import React from 'react';
 import Informacoes from './informacoes';
+import './informacoes.css';
 
-const Page = () => {
+const DashboardPage = () => {
     return (
-        <div>
+        <main>
             <Informacoes />
-        </div>
+        </main>
     );
 };
 
-export default Page;
+export default DashboardPage;

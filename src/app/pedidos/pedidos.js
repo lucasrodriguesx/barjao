@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; 
@@ -223,7 +223,8 @@ const Pedidos = () => {
       </button>
 
       <div className="footer mt-4">
-        <h3 className="smaller-title">Informações</h3>
+      <h3 className="info-list">
+      <a href="../Informacoes" className="info-list">Informações</a> </h3>
         <ul className="info-list">
         <li>Ano de Fundação: 2024</li>
           <li>Redes Sociais:</li>

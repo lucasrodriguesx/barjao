@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -234,7 +234,8 @@ const goToFuncionarios = () => {
         </div>
       )}
       <div className="footer mt-4">
-        <h3 className="smaller-title">Informações</h3>
+      <h3 className="info-list">
+      <a href="../Informacoes" className="info-list">Informações</a> </h3>
         <ul className="info-list">
           <li>Ano de Fundação: 2024</li>
           <li>Redes Sociais:</li>

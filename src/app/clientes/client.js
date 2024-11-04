@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { useState, useEffect } from 'react';
 import { FiAlignJustify, FiUser } from "react-icons/fi";
@@ -181,7 +181,7 @@ const Client = () => {
           </span>
         </p>
 
-        {/* Lista de Clientes */}
+  
         <div className="client-list">
           <h2>Lista de Clientes</h2>
           {clients.length === 0 ? (
@@ -200,10 +200,11 @@ const Client = () => {
         </div>
       </div>
 
-      {/* Rodapé */}
+
       <div className="footer mt-4">
-        <h3 className="informacoes">Informações</h3>
-        <ul className="info-list">
+      <h3 className="info-list">
+    <a href="../Informacoes" className="info-list">Informações</a> </h3>
+       <ul className="info-list">
           <li>Ano de Fundação: 2024</li>
           <li>Redes Sociais:</li>
           <li>
