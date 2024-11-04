@@ -1,68 +1,107 @@
-"use client";
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiAlignJustify, FiUser } from "react-icons/fi";
 import { LiaChairSolid } from "react-icons/lia";
 import { BiDrink } from "react-icons/bi";
 import { FaShoppingCart } from "react-icons/fa";
+import { AiOutlineTeam } from "react-icons/ai";
 import './client.css';
 import { useRouter } from 'next/navigation';
+import { mask } from 'remask'; 
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const Client = () => {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phoneNumber: ''
-  });
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [clients, setClients] = useState([]);
-  const [editingClient, setEditingClient] = useState(null);
+  const [currentClient, setCurrentClient] = useState(null);
+
+  useEffect(() => {
+    const storedClients = localStorage.getItem('clients');
+    if (storedClients) {
+      setClients(JSON.parse(storedClients));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('clients', JSON.stringify(clients));
+  }, [clients]);
 
   const toggleMenu = () => setShowMenu(!showMenu);
   const toggleForm = () => {
     setIsLogin(!isLogin);
-    setFormData({ email: '', password: '', confirmPassword: '', phoneNumber: '' }); // Limpa o formulário
+    setCurrentClient(null);
+    setErrorMessage('');
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const handleSubmit = async (values) => {
+    const errors = await validateClient(values);
+    if (Object.keys(errors).length > 0) {
+      setErrorMessage(Object.values(errors).join(' '));
+      return;
+    }
+    setErrorMessage('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
     if (isLogin) {
-      setSuccessMessage('Login concluído com sucesso');
+      const existingClient = clients.find(client => client.email === values.email && client.password === values.password);
+      if (existingClient) {
+        setSuccessMessage('Login concluído com sucesso');
+      } else {
+        setErrorMessage('E-mail ou senha incorretos');
+      }
     } else {
-      if (editingClient) {
-        const updatedClients = clients.map((client) =>
-          client.id === editingClient.id ? { ...formData, id: client.id } : client
+      if (currentClient) {
+        const updatedClients = clients.map(client =>
+          client.id === currentClient.id ? { ...client, ...values } : client
         );
         setClients(updatedClients);
-        setEditingClient(null);
+        setCurrentClient(null);
         setSuccessMessage('Cliente atualizado com sucesso');
       } else {
-        setClients([...clients, { ...formData, id: Date.now() }]);
+        const newClient = { ...values, id: Date.now() };
+        setClients(prevClients => [...prevClients, newClient]);
         setSuccessMessage('Cadastro concluído com sucesso');
       }
     }
+    
     setTimeout(() => setSuccessMessage(''), 3000);
-    setFormData({ email: '', password: '', confirmPassword: '', phoneNumber: '' });
+  };
+
+  const validateClient = async (values) => {
+    const errors = {};
+
+  
+    const phoneNumber = values.phoneNumber.replace(/\D/g, ''); 
+    if (phoneNumber.length < 10 || phoneNumber.length > 15) {
+      errors.phoneNumber = 'O número de telefone deve conter entre 10 e 15 dígitos.';
+    }
+
+ 
+    if (!values.email) {
+      errors.email = 'E-mail é obrigatório.';
+    }
+    if (!values.password) {
+      errors.password = 'Senha é obrigatória.';
+    }
+    if (!isLogin && values.password !== values.confirmPassword) {
+      errors.confirmPassword = 'As senhas não coincidem.';
+    }
+
+    return errors;
   };
 
   const handleEdit = (client) => {
-    setFormData(client);
-    setEditingClient(client);
+    setCurrentClient(client);
     setIsLogin(false);
   };
 
   const handleDelete = (id) => {
-    const filteredClients = clients.filter((client) => client.id !== id);
-    setClients(filteredClients);
+    const updatedClients = clients.filter(client => client.id !== id);
+    setClients(updatedClients);
     setSuccessMessage('Cliente excluído com sucesso');
     setTimeout(() => setSuccessMessage(''), 3000);
   };
@@ -77,14 +116,17 @@ const Client = () => {
             <li title="Login" onClick={() => router.push('../clientes')}>
               <FiUser className="menu-icon-item" />
             </li>
-            <li title="Reserve a sua Mesa">
+            <li title="Reserve a sua Mesa" onClick={() => router.push('../mesas')}>
               <LiaChairSolid className="menu-icon-item" />
             </li>
             <li title="Bebidas" onClick={() => router.push('../bebidas')}>
               <BiDrink className="menu-icon-item" />
             </li>
-            <li title="Pedido">
+            <li title="Pedido" onClick={() => router.push('../pedidos')}>
               <FaShoppingCart className="menu-icon-item" />
+            </li>
+            <li title="Funcionarios"onClick={() => router.push('../funcionarios')} >
+              <AiOutlineTeam className="menu-icon-item" />
             </li>
           </ul>
         </div>
@@ -95,48 +137,43 @@ const Client = () => {
       </div>
 
       {successMessage && <div className="success-message">{successMessage}</div>}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       <div className="content-wrapper">
         <h1>{isLogin ? 'Login' : 'Cadastro'}</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="E-mail"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Senha"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          {!isLogin && (
-            <>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Repetir Senha"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="phoneNumber"
-                placeholder="Número de Telefone"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-                required
-              />
-            </>
+        <Formik
+          initialValues={{
+            email: currentClient ? currentClient.email : '',
+            password: '',
+            confirmPassword: '',
+            phoneNumber: currentClient ? currentClient.phoneNumber : ''
+          }}
+          onSubmit={handleSubmit}
+        >
+          {({ values, setFieldValue }) => (
+            <Form>
+              <Field type="email" name="email" placeholder="E-mail" required />
+              <ErrorMessage name="email" component="div" className="error-message" />
+              <Field type="password" name="password" placeholder="Senha" required />
+              <ErrorMessage name="password" component="div" className="error-message" />
+              {!isLogin && (
+                <>
+                  <Field type="password" name="confirmPassword" placeholder="Repetir Senha" required />
+                  <ErrorMessage name="confirmPassword" component="div" className="error-message" />
+                  <Field 
+                    type="text" 
+                    name="phoneNumber" 
+                    placeholder="Número de Telefone" 
+                    required 
+                    onChange={e => setFieldValue('phoneNumber', mask(e.target.value, '(99) 99999-9999'))} // Aplica a máscara
+                  />
+                  <ErrorMessage name="phoneNumber" component="div" className="error-message" />
+                </>
+              )}
+              <button type="submit">{isLogin ? 'Entrar' : currentClient ? 'Atualizar' : 'Cadastrar'}</button>
+            </Form>
           )}
-          <button type="submit">{isLogin ? 'Entrar' : editingClient ? 'Atualizar' : 'Cadastrar'}</button>
-        </form>
+        </Formik>
         <p>
           {isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?'}{' '}
           <span onClick={toggleForm} style={{ color: '#FFA500', cursor: 'pointer' }}>
@@ -144,7 +181,7 @@ const Client = () => {
           </span>
         </p>
 
-        {/* Clientes */}
+        {/* Lista de Clientes */}
         <div className="client-list">
           <h2>Lista de Clientes</h2>
           {clients.length === 0 ? (
@@ -163,7 +200,7 @@ const Client = () => {
         </div>
       </div>
 
-      {/* rodapezin */}
+      {/* Rodapé */}
       <div className="footer mt-4">
         <h3 className="informacoes">Informações</h3>
         <ul className="info-list">

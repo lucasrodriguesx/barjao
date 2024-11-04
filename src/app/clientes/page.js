@@ -1,6 +1,4 @@
-"use client";
 import Client from './client';
-
 const Page = () => {
   return <Client />;
 };

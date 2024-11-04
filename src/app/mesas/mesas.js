@@ -1,29 +1,25 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiAlignJustify, FiUser } from "react-icons/fi";
 import { GiRoundTable } from "react-icons/gi";
 import './mesas.css';
-import { BiDrink } from 'react-icons/bi';
-import { FaShoppingCart } from 'react-icons/fa';
+import { BiDrink } from "react-icons/bi";
+import { FaShoppingCart } from "react-icons/fa";
+import { AiOutlineTeam } from "react-icons/ai";
+import { LiaChairSolid } from "react-icons/lia";
+import MesaValidador from '../../validators/MesaValidador'; 
+import { Formik, Form, Field, ErrorMessage } from 'formik'; 
 
 const Mesa = () => {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
-  const [mesas, setMesas] = useState([
-    { id: 1, title: "Mesa dos Conquistadores de Cerveja" },
-    { id: 2, title: "Mesa dos Campeões da Ressaca" },
-    { id: 3, title: "Mesa dos Caçadores de Promoção" },
-    { id: 4, title: "Mesa dos Contadores de História" },
-    { id: 5, title: "Mesa dos Degustadores Famosos" },
-    { id: 6, title: "Mesa dos Gladiadores da Madrugada" }
-  ]);
-  const [isSelected, setIsSelected] = useState(Array(6).fill(false));
+  const [mesas, setMesas] = useState([]);
+  const [isSelected, setIsSelected] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentMesa, setCurrentMesa] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [newMesaTitle, setNewMesaTitle] = useState('');
   const [showPedidoModal, setShowPedidoModal] = useState(false);
   const [pedidoInfo, setPedidoInfo] = useState({ nome: '', telefone: '', quantidade: '', adicionais: '' });
 
@@ -35,6 +31,19 @@ const Mesa = () => {
     router.push('/');
   };
 
+  const goToBebidas = () => {
+    router.push('/bebidas');
+  };
+
+  const goToClientes = () => {
+    router.push('/clientes');
+  };
+  const goToPedidos = () => {
+    router.push('../pedidos'); 
+};
+const goToFuncionarios = () => {
+  router.push('../funcionarios'); 
+};
   const handleMesaClick = (index) => {
     setCurrentMesa(mesas[index]);
     const updatedSelected = isSelected.map((_, i) => i === index);
@@ -45,38 +54,56 @@ const Mesa = () => {
     setShowAddModal(true);
   };
 
-  const confirmAddMesa = () => {
-    if (newMesaTitle.trim() !== '') {
-      const newId = mesas.length + 1;
-      const newMesa = { id: newId, title: newMesaTitle };
-      setMesas([...mesas, newMesa]);
-      setIsSelected([...isSelected, false]);
-      setNewMesaTitle('');
-      setShowAddModal(false);
-    }
+  const confirmAddMesa = async (values) => {
+    const newId = mesas.length > 0 ? mesas[mesas.length - 1].id + 1 : 1; 
+    const newMesa = { id: newId, title: values.title, valor: values.valor };
+    const updatedMesas = [...mesas, newMesa];
+    setMesas(updatedMesas);
+    setIsSelected([...isSelected, false]);
+    setShowAddModal(false);
+    localStorage.setItem('mesas', JSON.stringify(updatedMesas)); 
   };
 
   const removeMesa = () => {
     if (currentMesa) {
-      setMesas(mesas.filter((mesa) => mesa.id !== currentMesa.id));
+      const updatedMesas = mesas.filter((mesa) => mesa.id !== currentMesa.id);
+      setMesas(updatedMesas);
       setShowModal(false);
+      localStorage.setItem('mesas', JSON.stringify(updatedMesas)); 
     }
   };
 
-  const editMesaTitle = (newTitle) => {
-    if (currentMesa) {
+  const editMesaTitle = () => {
+    const newTitle = prompt("Digite o novo nome da mesa:", currentMesa?.title);
+    if (newTitle && currentMesa) {
       const updatedMesas = mesas.map((mesa) =>
         mesa.id === currentMesa.id ? { ...mesa, title: newTitle } : mesa
       );
       setMesas(updatedMesas);
+      localStorage.setItem('mesas', JSON.stringify(updatedMesas)); 
     }
   };
 
   const confirmPedido = () => {
-    alert(`Pedido da mesa "${currentMesa.title}" confirmado para ${pedidoInfo.nome}!`);
+    if (!currentMesa) {
+      alert("Por favor, selecione uma mesa antes de fazer o pedido.");
+      return;
+    }
+
+    const { title } = currentMesa;
+    alert(`Pedido da mesa "${title}" confirmado para ${pedidoInfo.nome}!`);
     setShowPedidoModal(false);
     setPedidoInfo({ nome: '', telefone: '', quantidade: '', adicionais: '' });
   };
+
+ 
+  useEffect(() => {
+    const storedMesas = localStorage.getItem('mesas');
+    if (storedMesas) {
+      setMesas(JSON.parse(storedMesas));
+      setIsSelected(Array(JSON.parse(storedMesas).length).fill(false));
+    }
+  }, []);
 
   return (
     <div className="mesa">
@@ -96,17 +123,20 @@ const Mesa = () => {
       {showMenu && (
         <div className="menu">
           <ul>
-            <li title="Login">
+            <li title="Login" onClick={goToClientes}>
               <FiUser className="menu-icon-item" />
             </li>
             <li title="Reserve sua Mesa">
-              <GiRoundTable className="menu-icon-item" />
+              <LiaChairSolid className="menu-icon-item" />
             </li>
-            <li title="Bebidas" onClick={() => router.push('../bebidas')}>
+            <li title="Bebidas" onClick={goToBebidas}>
               <BiDrink className="menu-icon-item" />
             </li>
-            <li title="Pedido">
+            <li title="Pedidos" onClick={goToPedidos}>
               <FaShoppingCart className="menu-icon-item" />
+            </li>
+            <li title="Funcionarios" onClick={goToFuncionarios}>
+              <AiOutlineTeam className="menu-icon-item" />
             </li>
           </ul>
         </div>
@@ -128,24 +158,36 @@ const Mesa = () => {
         </div>
         <button onClick={addMesa} className="btn-add">Adicionar Mesa</button>
         <button onClick={() => setShowPedidoModal(true)} className="btn-pedir">Pedir</button>
+        <button onClick={removeMesa} className="btn-remove">Excluir Mesa</button>
+        <button onClick={editMesaTitle} className="btn-edit">Editar Mesa</button>
       </div>
 
       {showAddModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>Adicionar Nova Mesa</h3>
-            <input
-              type="text"
-              placeholder="Nome da nova mesa"
-              value={newMesaTitle}
-              onChange={(e) => setNewMesaTitle(e.target.value)}
-            />
-            <div className="button-container">
-              <button onClick={confirmAddMesa} className="btn-confirm">Confirmar Adição</button>
-              <button onClick={() => setShowAddModal(false)} className="btn-remove">Cancelar</button>
-            </div>
-          </div>
-        </div>
+        <Formik
+          initialValues={{ title: '', valor: 50 }} 
+          validationSchema={MesaValidador} 
+          onSubmit={confirmAddMesa} 
+        >
+          {({ errors, touched }) => (
+            <Form className="modal-overlay">
+              <div className="modal-content">
+                <h3>Adicionar Nova Mesa</h3>
+                <div>
+                  <Field type="text" name="title" placeholder="Nome da nova mesa" />
+                  <ErrorMessage name="title" component="div" className="error" />
+                </div>
+                <div>
+                  <Field type="number" name="valor" placeholder="Valor da mesa" />
+                  <ErrorMessage name="valor" component="div" className="error" />
+                </div>
+                <div className="button-container">
+                  <button type="submit" className="btn-confirm">Confirmar Adição</button>
+                  <button type="button" onClick={() => setShowAddModal(false)} className="btn-remove">Cancelar</button>
+                </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
       )}
 
       {showPedidoModal && (
@@ -166,24 +208,31 @@ const Mesa = () => {
             />
             <input
               type="number"
-              placeholder="Quantidade de Pessoas"
+              placeholder="Quantidade"
               value={pedidoInfo.quantidade}
               onChange={(e) => setPedidoInfo({ ...pedidoInfo, quantidade: e.target.value })}
             />
             <input
               type="text"
-              placeholder="Informações Adicionais"
+              placeholder="Adicionais"
               value={pedidoInfo.adicionais}
               onChange={(e) => setPedidoInfo({ ...pedidoInfo, adicionais: e.target.value })}
             />
-            <div className="button-container">
-              <button onClick={confirmPedido} className="btn-confirm">Confirmar Pedido</button>
-              <button onClick={() => setShowPedidoModal(false)} className="btn-remove">Cancelar</button>
-            </div>
+            <button onClick={confirmPedido} className="btn-confirm">Confirmar Pedido</button>
+            <button onClick={() => setShowPedidoModal(false)} className="btn-remove">Cancelar</button>
           </div>
         </div>
       )}
 
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Tem certeza que deseja excluir a mesa {currentMesa?.title}?</h3>
+            <button onClick={removeMesa} className="btn-confirm">Sim</button>
+            <button onClick={() => setShowModal(false)} className="btn-remove">Não</button>
+          </div>
+        </div>
+      )}
       <div className="footer mt-4">
         <h3 className="smaller-title">Informações</h3>
         <ul className="info-list">
@@ -197,6 +246,7 @@ const Mesa = () => {
         </ul>
       </div>
     </div>
+    
   );
 };
 

@@ -6,7 +6,6 @@ body {
     color: #FFA500; 
 }
 
-
 .menu-toggle-icon {
     position: absolute;
     top: 20px;
@@ -15,7 +14,6 @@ body {
     font-size: 30px;
     cursor: pointer;
 }
-
 
 .vertical-menu {
     position: absolute;
@@ -49,7 +47,6 @@ body {
     color: #333;
 }
 
-
 .main-container {
     display: flex;
     align-items: center;
@@ -60,14 +57,12 @@ body {
     flex-direction: column; 
 }
 
-
 .logo {
     width: 100px;
     height: auto;
     margin-bottom: 20px;
     cursor: pointer; 
 }
-
 
 .success-message {
     background-color: #333; 
@@ -81,7 +76,6 @@ body {
     transform: translateX(-50%);
     z-index: 10;
 }
-
 
 .content-wrapper {
     background-color: #000; 
@@ -130,7 +124,6 @@ button {
 button:hover {
     background-color: #ff8c00; 
 }
-
 
 .client-list {
     margin-top: 20px;
@@ -185,33 +178,35 @@ button:hover {
     background-color: #ff1a1a; 
 }
 
- .footer {
+.footer {
     margin-top: 20px;
-  }
-  
-  .info-list {
+}
+
+.info-list {
     list-style-type: none; 
     padding: 0; 
     color: white; 
     text-align: center; 
-  
-  }
-  
-  .info-list li {
+}
+
+.info-list li {
     margin: 5px 0; 
     font-size: 1rem; 
-  }
-  
-  .info-list li a {
-    color: orange; 
+}
+
+.info-list li a {
+    color: #ffa500; 
     text-decoration: none; 
     transition: color 0.3s; 
-  }
-  
-  .info-list li a:hover {
+}
+
+.info-list li a:hover {
     color: #ff6600; 
-  }
-  
-  .informacoes {
-  text-align: center;
-  }
+}
+
+.informacoes {
+    text-align: center;
+}
+.info-list li {
+    color: #ffa500;
+}

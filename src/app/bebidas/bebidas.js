@@ -1,88 +1,97 @@
-"use client";
+'use client'
 
-import { useState } from 'react';
-import { Card, Button, Modal, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './bebidas.css';
-import { FiAlignJustify } from "react-icons/fi";
-import { BiDrink } from "react-icons/bi";
-import { LiaChairSolid } from "react-icons/lia";
-import { FiUser } from "react-icons/fi";
-import { FaShoppingCart, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import home from '../home/home'
+import { Card, Button, Toast, ToastContainer } from 'react-bootstrap';
+import { FaPlusCircle, FaRegEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { FiAlignJustify, FiUser } from "react-icons/fi";
+import { FaShoppingCart } from "react-icons/fa";
+import { AiOutlineTeam } from "react-icons/ai";
+import { LiaChairSolid } from "react-icons/lia";
+import { BiDrink } from "react-icons/bi";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { mask } from 'remask';
+import Home from '../home/home';
+import BebidasValidador from '../../validators/BebidasValidator';
+import './bebidas.css';
 
 const Bebidas = () => {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
-  const [selectedDrink, setSelectedDrink] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [bebidas, setBebidas] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [bebidasList, setBebidasList] = useState([
-    { nome: 'Cerveja Artesanal', descricao:'Cerveja feita em pequenos lotes, com sabores únicos.', imagem: 'https://img.freepik.com/fotos-gratis/celebracao-do-oktoberfest-com-cerveja-e-naturezas-mortas_23-2151639905.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Gin Tônica', descricao: 'Refrescante mistura de gin e água tônica, com rodelas de limão.', imagem: 'https://img.freepik.com/fotos-gratis/vista-frontal-de-oculos-aromaticos-de-cocktails_23-2148617546.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Negroni', descricao: 'Mistura clássica de gin, vermute e Campari.', imagem: 'https://img.freepik.com/fotos-gratis/copo-de-espaco-fresco-copia-cocktail_23-2148340084.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Daiquiri', descricao: 'Coquetel de rum, limão e açúcar, servido congelado ou líquido.', imagem: 'https://img.freepik.com/fotos-gratis/um-copo-de-coquetel-com-limao-e-copie-o-espaco_23-2148454366.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Caipirinha', descricao: 'o remédio perfeito para qualquer mal!', imagem: 'https://img.freepik.com/premium-photo/babi-guling-with-lime-wedge_1114710-224080.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Cuba Libre', descricao: 'Refrescante combinação de rum, cola e limão.', imagem: 'https://img.freepik.com/fotos-gratis/bebidas-na-mesa_23-2148667940.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Sangria', descricao: 'Bebida espanhola à base de vinho tinto e frutas.', imagem: 'https://img.freepik.com/fotos-gratis/bebida-refrescante-em-fundo-escuro_23-2148340044.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Uísque', descricao: 'é como um abraço quentinho... que desce queimando.', imagem: 'https://img.freepik.com/free-photo/close-up-ice-cold-drinks-ready-be-served_23-2148617679.jpg?t=st=1729898766~exp=1729902366~hmac=be5bc8700b8f7200dfd3378f3257cc0f3071897bd96ffa6e93e663160f7abbe3&w=740' },
-    { nome: 'Vinho Tinto', descricao: 'Vinho encorpado, ideal para acompanhar carnes vermelhas.', imagem: 'https://img.freepik.com/fotos-gratis/vinho-tinto-esta-sendo-derramado-em-vidro-com-haste-longa-no-escuro_140725-593.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Margarita', descricao: 'Clássico mexicano feito com tequila, limão e licor de laranja', imagem: 'https://img.freepik.com/fotos-premium/respingo-em-copo-de-coquetel-de-bebida-refrescante-007-vesper-com-martini-leve-e-vinho-branco-na-mesa-de-madeira-e-fundo-escuro_465253-987.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Cachaça', descricao: 'A base da famosa caipirinha, é um destilado brasileiro com sabor marcante.', imagem: 'https://img.freepik.com/fotos-gratis/conhaque-de-vista-frontal-em-copo-horizontal_23-2148673802.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Irish Coffee', descricao: 'Uma deliciosa combinação de café, açúcar, uísque e creme, perfeita para aquecer as noites frias.', imagem: 'https://img.freepik.com/fotos-gratis/graos-de-cafe-organicos-vida-morta_23-2151762360.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Cosmopolitan', descricao: 'Um coquetel chic feito com vodka, limão e licor de laranja, famoso entre as mulheres modernas.', imagem: 'https://img.freepik.com/fotos-gratis/deliciosa-bebida-em-copo-alto-chique-com-cereja_23-2148644605.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Rum', descricao: 'Feito a partir da cana-de-açúcar, é perfeito para drinques tropicais e noites de festa.', imagem: 'https://img.freepik.com/fotos-gratis/feche-acima-do-espaco-saboroso-da-copia-da-bebida_23-2148340053.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Whisky', descricao: 'a única bebida que te faz dançar até o sofá.', imagem: 'https://img.freepik.com/free-photo/glass-bottle-with-iced-cocktail_23-2148722514.jpg?t=st=1729898471~exp=1729902071~hmac=3ee0034d7ddf46440fb5040df3ac4bd7632ff3d773a0afe9d350c03f89e82fc1&w=740' },
-    { nome: 'Baileys', descricao: ' Um licor cremoso de whisky e creme de leite, perfeito para os amantes de bebidas doces.', imagem: 'https://img.freepik.com/fotos-gratis/closeup-tiro-de-um-copo-de-cappuccino-de-gelo-em-uma-placa-de-madeira-com-enfeites-em-preto_181624-24413.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Pina Colada', descricao: 'Uma bebida tropical feita com rum, coco e abacaxi, perfeita para dias na praia.', imagem: 'https://img.freepik.com/fotos-gratis/uma-grande-porcao-de-maca-de-abacaxi-misturada-bebida-de-verao_114579-1986.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Aperol', descricao: 'Um licor italiano com um sabor levemente amargo, perfeito para um refrescante spritz.', imagem: 'https://img.freepik.com/fotos-gratis/arranjo-de-comida-para-festa-de-halloween_23-2149085632.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Long Island Iced Tea', descricao: 'Um coquetel forte que combina várias bebidas destiladas, ideal para quem busca algo intenso.', imagem: 'https://img.freepik.com/fotos-gratis/vista-frontal-de-bebida-quente-em-vidro_23-2148453632.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-    { nome: 'Champanhe', descricao: 'O símbolo de celebração, essa bebida espumante é perfeita para brindar momentos especiais.', imagem: 'https://img.freepik.com/fotos-gratis/dois-copos-elegantes-com-champanhe-ouro_144627-6619.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid' },
-  ]);
+  const [editBebida, setEditBebida] = useState(null);
+  const [showToast, setShowToast] = useState(false);
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
+  const goToBebidas = () => {
+    router.push('../bebidas'); 
   };
 
+  const goToClientes = () => {
+    router.push('../clientes'); 
+  };
 
   const goToHome = () => {
-    router.push('/');
+    router.push('/'); 
   };
-  
-  const goToClients = () => {
-    router.push('/clientes');
+  const goToMesas = () => {
+    router.push('../mesas');
+  };
+  const goToPedidos = () => {
+    router.push('../pedidos'); 
+};
+const goToFuncionarios = () => {
+  router.push('../funcionarios'); 
+};
+
+  useEffect(() => {
+    const dados = JSON.parse(localStorage.getItem('bebidas')) || [];
+    setBebidas(dados);
+  }, []);
+
+  const toggleMenu = () => setShowMenu(!showMenu);
+
+  const excluir = (id) => {
+    if (confirm('Deseja realmente excluir a bebida?')) {
+      const dados = bebidas.filter(item => item.id !== id);
+      localStorage.setItem('bebidas', JSON.stringify(dados));
+      setBebidas(dados);
+    }
   };
 
-  const handleOrderClick = (bebida) => {
-    setSelectedDrink(bebida);
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedDrink(null);
-  };
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const newBeverage = {
-      nome: event.target.nome.value,
-      descricao: event.target.descricao.value,
-      imagem: event.target.imagem.value,
-    };
-    setBebidasList([...bebidasList, newBeverage]);
-    setShowForm(false);
-  };
-
-  const handleEditClick = (bebida) => {
-    setSelectedDrink(bebida);
+  const handleNovoBebida = () => {
+    setEditBebida(null); 
     setShowForm(true);
   };
 
-  const handleDeleteClick = (bebida) => {
-    const updatedBeverages = bebidasList.filter(b => b !== bebida);
-    setBebidasList(updatedBeverages);
+  const closeForm = () => setShowForm(false);
+
+  const handleEdit = (item) => {
+    setEditBebida(item);
+    setShowForm(true);
+  };
+
+  const handleMask = (value, maskPattern) => mask(value, maskPattern);
+
+  const handlePedido = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+  };
+
+  const handleSubmit = (values, { resetForm }) => {
+    let dados;
+    if (editBebida) {
+      dados = bebidas.map(bebida => (bebida.id === editBebida.id ? { ...values, id: bebida.id } : bebida));
+    } else {
+      const id = Math.random();
+      const novaBebidaComId = { ...values, id };
+      dados = [...bebidas, novaBebidaComId];
+    }
+    localStorage.setItem('bebidas', JSON.stringify(dados));
+    setBebidas(dados);
+    resetForm();
+    closeForm();
   };
 
   return (
@@ -103,93 +112,126 @@ const Bebidas = () => {
       {showMenu && (
         <div className="menu">
           <ul>
-          <li title="Login" onClick={goToClients}>
+          <li title="Login" onClick={goToClientes}> 
               <FiUser className="menu-icon-item" />
             </li>
-            <li title="Reserve a sua Mesa">
+            <li title="Reserve a sua Mesa" onClick={goToMesas}>
               <LiaChairSolid className="menu-icon-item" />
             </li>
-            <li title="Bebidas">
+            <li title="Bebidas" onClick={goToBebidas}>
               <BiDrink className="menu-icon-item" />
             </li>
-            <li title="Pedido">
+            <li title="Pedido" onClick={goToPedidos}>
               <FaShoppingCart className="menu-icon-item" />
+            </li>
+            <li title="Funcionarios" onClick={goToFuncionarios}>
+              <AiOutlineTeam className="menu-icon-item" />
             </li>
           </ul>
         </div>
       )}
 
-      <Button className="mb-3" onClick={() => setShowForm(true)}>Adicionar Bebida</Button>
+      <button className="btn btn-warning mb-3" onClick={handleNovoBebida}>
+        <FaPlusCircle /> Nova Bebida
+      </button>
 
       {showForm && (
-        <Form onSubmit={handleFormSubmit}>
-          <Form.Group controlId="formNome">
-            <Form.Label>Nome</Form.Label>
-            <Form.Control type="text" name="nome" required />
-          </Form.Group>
-          <Form.Group controlId="formDescricao">
-            <Form.Label>Descrição</Form.Label>
-            <Form.Control type="text" name="descricao" required />
-          </Form.Group>
-          <Form.Group controlId="formImagem">
-            <Form.Label>Imagem URL</Form.Label>
-            <Form.Control type="text" name="imagem" required />
-          </Form.Group>
-          <Button type="submit">Adicionar</Button>
-          <Button variant="secondary" onClick={() => setShowForm(false)}>Cancelar</Button>
-        </Form>
+        <Formik
+          initialValues={editBebida || { nome: '', tipo: '', preco: '', descricao: '', imagem: '' }}
+          validationSchema={BebidasValidador}
+          onSubmit={handleSubmit}
+        >
+          {({ setFieldValue }) => (
+            <Form className="mb-3">
+              <div className="mb-3">
+                <label className="form-label">Nome</label>
+                <Field type="text" name="nome" className="form-control" />
+                <ErrorMessage name="nome" component="div" className="text-danger" />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Tipo</label>
+                <Field type="text" name="tipo" className="form-control" />
+                <ErrorMessage name="tipo" component="div" className="text-danger" />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Descrição</label>
+                <Field type="text" name="descricao" className="form-control" />
+                <ErrorMessage name="descricao" component="div" className="text-danger" />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Preço</label>
+                <Field name="preco">
+                  {({ field }) => (
+                    <input
+                      {...field}
+                      className="form-control"
+                      onChange={(e) => setFieldValue('preco', handleMask(e.target.value, 'R$ 9999,99'))}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage name="preco" component="div" className="text-danger" />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">URL da Imagem</label>
+                <Field type="text" name="imagem" className="form-control" />
+                <ErrorMessage name="imagem" component="div" className="text-danger" />
+              </div>
+              <button type="submit" className="btn btn-success">Salvar</button>
+              <button type="button" className="btn btn-danger ms-2" onClick={closeForm}>Cancelar</button>
+            </Form>
+          )}
+        </Formik>
       )}
 
-      <div className="bebidas-container">
-        {bebidasList.map((bebida, index) => (
-          <Card key={index} className="bebida">
-            <Card.Img variant="top" src={bebida.imagem} />
-            <Card.Body>
-              <Card.Title>{bebida.nome}</Card.Title>
-              <Card.Text>{bebida.descricao}</Card.Text>
-              <div className="button-group">
-                <Button variant="primary" onClick={() => handleOrderClick(bebida)}>Pedir</Button>
-                <Button variant="secondary" onClick={() => handleEditClick(bebida)}>Editar</Button>
-                <Button variant="danger" onClick={() => handleDeleteClick(bebida)}>Excluir</Button>
-              </div>
-            </Card.Body>
-          </Card>
+      <div className="bebidas-cards row gy-1">
+        {bebidas.map((item) => (
+          <div className="col-lg-2" key={item.id}>
+            <Card className="bebida-card">
+              <Card.Img variant="top" src={item.imagem} alt={item.nome} />
+              <Card.Body>
+                <Card.Title>{item.nome}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{item.tipo}</Card.Subtitle>
+                <Card.Text>{item.descricao}</Card.Text>
+                <Card.Text>{item.preco}</Card.Text>
+                <div className="bebida-botoes">
+                  <Button variant="warning" onClick={() => excluir(item.id)}>
+                    <MdDelete /> Excluir
+                  </Button>
+                  <Button variant="info" className="ms-2" onClick={() => handleEdit(item)}>
+                    <FaRegEdit /> Editar
+                  </Button>
+                  <Button variant="success" className="ms-2" onClick={handlePedido}>
+                    Pedir
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </div>
         ))}
       </div>
 
-      <Modal show={showModal} onHide={closeModal} className="modal-custom">
-        <Modal.Header closeButton>
-          <Modal.Title>Pedido de {selectedDrink?.nome}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ backgroundColor: 'black', color: 'orange' }}>
-          {selectedDrink && (
-            <>
-              <img src={selectedDrink.imagem} alt={selectedDrink.nome} style={{ width: '100%' }} />
-              <p>{selectedDrink.descricao}</p>
-            </>
-          )}
-        </Modal.Body>
-        <Modal.Footer style={{ backgroundColor: 'black', color: 'orange' }}>
-          <Button variant="secondary" onClick={closeModal}>
-            Fechar
-          </Button>
-          <Button variant="primary">Confirmar Pedido</Button>
-        </Modal.Footer>
-      </Modal>
-     {/* rodapezin */}
-     <div className="footer mt-4">
-     <h2 className="informacoes">Informações</h2>
-     <ul className="info-list">
-       <li>Ano de Fundação: 2024</li>
-       <li>Redes Sociais:</li>
-       <li>
-         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
-         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
-         <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-       </li>
-     </ul>
-   </div>
- </div>
+      <ToastContainer position="bottom-end" className="p-3">
+        <Toast show={showToast} onClose={() => setShowToast(false)} delay={2000} autohide>
+          <Toast.Header>
+            <strong className="me-auto">Pedido</strong>
+          </Toast.Header>
+          <Toast.Body>Pedido concluído com sucesso!</Toast.Body>
+        </Toast>
+      </ToastContainer>
+
+      <div className="footer mt-4">
+        <h3 className="smaller-title">Informações</h3>
+        <ul className="info-list">
+          <li>Ano de Fundação: 2024</li>
+          <li>Redes Sociais:</li>
+          <li>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
+            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };
 

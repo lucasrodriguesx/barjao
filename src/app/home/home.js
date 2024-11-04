@@ -9,6 +9,7 @@ import { BiDrink } from "react-icons/bi";
 import { LiaChairSolid } from "react-icons/lia";
 import { FiUser } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
+import { AiOutlineTeam } from "react-icons/ai";
 import { useRouter } from 'next/navigation'; 
 
 const Home = () => {
@@ -31,6 +32,16 @@ const Home = () => {
     router.push('/'); 
   };
 
+  const goToMesas = () => {
+    router.push('../mesas');
+  };
+  const goToPedidos = () => {
+    router.push('../pedidos'); 
+};
+const goToFuncionarios = () => {
+  router.push('../funcionarios'); 
+};
+
   return (
     <div className="home">
       <div className="header">
@@ -49,17 +60,20 @@ const Home = () => {
       {showMenu && (
         <div className="menu">
           <ul>
-            <li title="Login" onClick={goToClientes}> {/* Navega para a página de clientes */}
+            <li title="Login" onClick={goToClientes}> 
               <FiUser className="menu-icon-item" />
             </li>
-            <li title="Reserve a sua Mesa">
+            <li title="Reserve a sua Mesa" onClick={goToMesas}>
               <LiaChairSolid className="menu-icon-item" />
             </li>
             <li title="Bebidas" onClick={goToBebidas}>
               <BiDrink className="menu-icon-item" />
             </li>
-            <li title="Pedido">
+            <li title="Pedido" onClick={goToPedidos}>
               <FaShoppingCart className="menu-icon-item" />
+            </li>
+            <li title="Funcionarios" onClick={goToFuncionarios}>
+              <AiOutlineTeam className="menu-icon-item" />
             </li>
           </ul>
         </div>
@@ -69,7 +83,7 @@ const Home = () => {
         <Carousel.Item>
           <img
             className="d-block custom-image"
-            src="https://img.freepik.com/free-photo/glass-bottle-with-iced-cocktail_23-2148722514.jpg?t=st=1729898471~exp=1729902071~hmac=3ee0034d7ddf46440fb5040df3ac4bd7632ff3d773a0afe9d350c03f89e82fc1&w=740"
+            src="https://img.freepik.com/free-photo/closeup-glass-old-fashioned-cocktail-with-ice-wooden-table-with-blurry-background_181624-59474.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid"
             alt="Whisky"
           />
           <Carousel.Caption>
@@ -91,7 +105,7 @@ const Home = () => {
         <Carousel.Item>
           <img
             className="d-block custom-image"
-            src="https://img.freepik.com/free-photo/close-up-ice-cold-drinks-ready-be-served_23-2148617679.jpg?t=st=1729898766~exp=1729902366~hmac=be5bc8700b8f7200dfd3378f3257cc0f3071897bd96ffa6e93e663160f7abbe3&w=740"
+            src="https://img.freepik.com/free-photo/close-up-ice-cold-drinks-ready-be-served_23-2148617679.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid"
             alt="Uísque"
           />
           <Carousel.Caption>

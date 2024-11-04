@@ -45,7 +45,7 @@ body {
 .carousel-control-prev,
 .carousel-control-next {
   width: 2%; 
-  top: 50%; 
+  top: 70%; 
   transform: translateY(-50%); 
 }
 

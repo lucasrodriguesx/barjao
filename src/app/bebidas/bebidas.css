@@ -1,144 +1,163 @@
 .bebidas {
-    background-color: #000; 
-    color: #ffa500; 
-    padding: 20px; 
-  }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-  }
-  
-  .logo-container {
-    cursor: pointer; 
-  }
-  
-  .menu {
-    position: absolute; 
-    top: 60px; 
-    left: 0; 
-    background-color: #000; 
-    border: 1px solid #ffa500; 
-    z-index: 1000; 
-  }
-  
-  .bebidas-container {
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: flex-start; 
-    gap: 10px; 
-  }
-  
-  .bebida {
-    width: calc(20% - 10px); 
-    background-color: #222; 
-    color: #ffa500; 
-    border: 2px solid #ffa500; 
-    padding: 5px; 
-    cursor: pointer; 
-    transition: transform 0.2s; 
-    box-sizing: border-box; 
-    min-width: 100px; 
-  }
-  
-  .bebida:hover {
-    transform: scale(1.10); 
-  }
-  
-  .bebida img {
-    height: 191px; 
-    object-fit: cover; 
-    border-radius: 5%; 
-  }
-  
-  .bebida-nome {
-    font-size: 1rem; 
-    text-align: center; 
-  }
-  
-  .bebida-descricao {
-    font-size: 0.85rem; 
-    text-align: center; 
-  }
-  
-  
-  .bebida-botoes {
-    display: flex; 
-    justify-content: space-between; 
-    margin-top: 10px; 
-    width: 100%; 
-  }
-  
-  .btn-primary {
-    background-color: #000; 
-    border-color: #ffa500; 
-  }
-  
-  .btn-primary:hover {
-    background-color: #ffa500; 
-    color: #000; 
-  }
-  
-  .btn-secondary {
-    background-color: #000; 
-    border-color: #ffa500; 
-  }
-  
-  .btn-secondary:hover {
-    background-color: #ffa500; 
-    color: #000; 
-  }
-  
-  .btn-danger {
-    background-color: #000; 
-    border-color: #ff0000; 
-  }
-  
-  .btn-danger:hover {
-    background-color: #ff0000;
-    color: #fff; 
-  }
-  .modal-content {
-    background-color: black; 
-    color: orange; 
-  }
-  
-  .modal-header, .modal-footer {
-    border: none; 
-  }
-  
-  .modal-title {
-    color: orange; 
-  }
-  
-.footer {
-  margin-top: 20px;
+  position: relative;
+  padding: 20px;
+  background-color: #000000; 
+  color: #ffa500; 
 }
 
-.info-list {
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ffa500; 
+}
+
+.logo-container {
+  cursor: pointer;
+}
+
+.menu {
+  position: absolute; 
+  top: 60px; 
+  left: 10px; 
+  background-color: rgba(255, 165, 0, 0.8); 
+  border-radius: 5px; 
+  padding: 10px; 
+  text-align: left; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.menu ul {
   list-style-type: none; 
   padding: 0; 
-  color: white; 
+  display: flex;
+  flex-direction: column; 
+  gap: 10px; 
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  color: #000000; 
+  position: relative; 
+}
+
+.menu-icon-item {
+  font-size: 1.5rem; 
+  color: #000000; 
+  transition: color 0.2s ease; 
+}
+
+.menu-icon-item:hover {
+  color: #ffa500; 
+}
+
+.menu li[title]:hover::after {
+  content: attr(title); 
+  position: absolute;
+  left: 40px; 
+  color: #ffa500; 
+  font-size: 0.9rem; 
+  background: rgba(0, 0, 0, 0.8); 
+  padding: 3px 5px; 
+  border-radius: 3px; 
+}
+
+.bebidas-cards {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 0; 
+  justify-content: flex-start; 
+}
+
+.bebida-card {
+  width: 250px;
+  background-color: #2e2828; 
+  color: #ffa500; 
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+.bebida-card img {
+  height: 191px; 
+  object-fit: cover; 
+  border-bottom: 2px solid #ffa500; 
+  border-radius: 5%; 
+}
+
+
+.bebida-card .card-title {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.bebida-card .card-text {
+  font-size: 0.85rem; 
   text-align: center; 
-
+  color: #ffa500;
 }
 
-.info-list li {
-  margin: 5px 0; 
-  font-size: 1rem; 
+
+.bebida-card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.info-list li a {
-  color: orange; 
-  text-decoration: none; 
-  transition: color 0.3s;
+.bebida-botoes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
 }
 
-.info-list li a:hover {
-  color: #ff6600; 
+.bebida-botoes .btn {
+  font-size: 0.6rem; 
+  background-color: #000000; 
+  border: 2px solid #ffa500; 
+  color: #ffa500; 
+  padding: 5px 10px; 
+  transition: background-color 0.3s;
 }
 
-.informacoes {
-text-align: center;
+.bebida-botoes .btn:hover {
+  background-color: #333333; 
+}
+
+/* Botão "Pedir" */
+.bebida-botoes .btn-pedir {
+  background-color: #000000;
+  border: 2px solid #ffa500;
+  color: #ffa500;
+}
+
+.bebidas-cards .col {
+  padding: 0.0rem; 
+}
+
+.footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.footer .footer-title {
+  color: #ffa500;
+}
+
+.footer .info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer .info-list li {
+  color: #ffa500;
 }
