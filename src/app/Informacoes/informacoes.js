@@ -74,8 +74,10 @@ const Informacoes = () => {
             <img className= "graficoimg"src="https://img.freepik.com/vetores-gratis/zoom-de-velocidade-de-tubulacao-de-linhas-de-luz-vermelha-abstrata-na-tecnologia-de-fundo-preto_1142-8971.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid" alt="Gráfico de Vendas 1" />
           </div>
           <div className="charttext">
+            <div>
             <p>Comparativo de vendas</p>
             <img  className= "graficoimg" src="https://img.freepik.com/vetores-gratis/linhas-de-luz-de-ouro-abstratas-zoom-de-velocidade-de-tubulacao-na-tecnologia-de-fundo-preto_1142-10811.jpg?uid=R170505820&ga=GA1.1.1696077591.1729889218&semt=ais_hybrid" alt="Gráfico de Vendas 2" />
+          </div>
           </div>
         </div>
 
