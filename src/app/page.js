@@ -6,6 +6,7 @@ import Pedidos from './pedidos/pedidos';
 import Funcionarios from './funcionarios/funcionarios';
 import Bebidas from './bebidas/bebidas';
 import Informacoes from './Informacoes/informacoes';
+
 const Page = () => {
   return (
     <div className="home"> {/* Mantendo a classe para garantir o fundo preto */}

@@ -52,3 +52,7 @@ a {
     color-scheme: dark;
   }
 }
+.bebida-card {
+  width: 250px;
+  background-color: #000000; 
+}

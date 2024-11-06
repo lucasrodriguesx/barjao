@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './home.css';
@@ -10,37 +10,27 @@ import { LiaChairSolid } from "react-icons/lia";
 import { FiUser } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiOutlineTeam } from "react-icons/ai";
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../../context/AuthContext';
 
 const Home = () => {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
+  const { user, logout } = useAuth();
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
+  useEffect(() => {
+    if (!user) {
+      router.push('/clientes');
+    }
+  }, [user, router]);
 
-  const goToBebidas = () => {
-    router.push('../bebidas'); 
-  };
+  const toggleMenu = () => setShowMenu(!showMenu);
 
-  const goToClientes = () => {
-    router.push('../clientes'); 
-  };
-
-  const goToHome = () => {
-    router.push('/'); 
-  };
-
-  const goToMesas = () => {
-    router.push('../mesas');
-  };
-  const goToPedidos = () => {
-    router.push('../pedidos'); 
-};
-const goToFuncionarios = () => {
-  router.push('../funcionarios'); 
-};
+  const goToBebidas = () => router.push('../bebidas');
+  const goToHome = () => router.push('/');
+  const goToMesas = () => router.push('../mesas');
+  const goToPedidos = () => router.push('../pedidos');
+ 
 
   return (
     <div className="home">
@@ -53,16 +43,14 @@ const goToFuncionarios = () => {
             alt="Logo do Bar"
           />
         </div>
+        {user && <span className="user-name">Bem-vindo, {user}!</span>}
       </div>
 
       <h1 className="smaller-title mt-4">Bem-vindo ao Bar!</h1>
-      
+
       {showMenu && (
         <div className="menu">
           <ul>
-            <li title="Login" onClick={goToClientes}> 
-              <FiUser className="menu-icon-item" />
-            </li>
             <li title="Reserve a sua Mesa" onClick={goToMesas}>
               <LiaChairSolid className="menu-icon-item" />
             </li>
@@ -71,9 +59,6 @@ const goToFuncionarios = () => {
             </li>
             <li title="Pedido" onClick={goToPedidos}>
               <FaShoppingCart className="menu-icon-item" />
-            </li>
-            <li title="Funcionarios" onClick={goToFuncionarios}>
-              <AiOutlineTeam className="menu-icon-item" />
             </li>
           </ul>
         </div>
@@ -116,19 +101,19 @@ const goToFuncionarios = () => {
       </Carousel>
 
       <div className="footer mt-4">
-  <h3 className="smaller-title">
-    <a href="../Informacoes" className="info-list">Informações</a>
-  </h3>
-  <ul className="info-list">
-    <li>Ano de Fundação: 2024</li>
-    <li>Redes Sociais:</li>
-    <li>
-      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
-      <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-    </li>
-  </ul>
-</div>
+        <h3 className="smaller-title">
+          <a href="../Informacoes" className="info-list">Informações</a>
+        </h3>
+        <ul className="info-list">
+          <li>Ano de Fundação: 2024</li>
+          <li>Redes Sociais:</li>
+          <li>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
+            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

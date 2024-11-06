@@ -1,24 +1,20 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { FiAlignJustify, FiUser } from "react-icons/fi";
-import { LiaChairSolid } from "react-icons/lia";
-import { BiDrink } from "react-icons/bi";
-import { FaShoppingCart } from "react-icons/fa";
-import { AiOutlineTeam } from "react-icons/ai";
-import './client.css';
 import { useRouter } from 'next/navigation';
-import { mask } from 'remask'; 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useAuth } from '../../context/AuthContext';
+import './client.css';
 
 const Client = () => {
   const router = useRouter();
-  const [showMenu, setShowMenu] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [clients, setClients] = useState([]);
   const [currentClient, setCurrentClient] = useState(null);
+  const [isClientRegistration, setIsClientRegistration] = useState(true);
+  const { login } = useAuth();
 
   useEffect(() => {
     const storedClients = localStorage.getItem('clients');
@@ -31,13 +27,6 @@ const Client = () => {
     localStorage.setItem('clients', JSON.stringify(clients));
   }, [clients]);
 
-  const toggleMenu = () => setShowMenu(!showMenu);
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-    setCurrentClient(null);
-    setErrorMessage('');
-  };
-
   const handleSubmit = async (values) => {
     const errors = await validateClient(values);
     if (Object.keys(errors).length > 0) {
@@ -47,11 +36,14 @@ const Client = () => {
     setErrorMessage('');
 
     if (isLogin) {
-      const existingClient = clients.find(client => client.email === values.email && client.password === values.password);
+      const existingClient = clients.find(client => client.username === values.username && client.password === values.password);
       if (existingClient) {
         setSuccessMessage('Login concluído com sucesso');
+        localStorage.setItem('currentClient', JSON.stringify(existingClient));
+        login(values.username); // Configura o usuário logado
+        router.push('/');
       } else {
-        setErrorMessage('E-mail ou senha incorretos');
+        setErrorMessage('Nome de usuário ou senha incorretos');
       }
     } else {
       if (currentClient) {
@@ -62,76 +54,47 @@ const Client = () => {
         setCurrentClient(null);
         setSuccessMessage('Cliente atualizado com sucesso');
       } else {
-        const newClient = { ...values, id: Date.now() };
+        const newClient = { ...values, id: Date.now(), role: isClientRegistration ? 'cliente' : 'funcionario' };
         setClients(prevClients => [...prevClients, newClient]);
-        setSuccessMessage('Cadastro concluído com sucesso');
+        setSuccessMessage(isClientRegistration ? 'Cadastro de cliente concluído com sucesso' : 'Cadastro de funcionário concluído com sucesso');
+        localStorage.setItem('currentClient', JSON.stringify(newClient));
       }
     }
-    
+
     setTimeout(() => setSuccessMessage(''), 3000);
   };
 
   const validateClient = async (values) => {
     const errors = {};
+    if (!values.name) errors.name = 'Nome é obrigatório.';
+    if (!values.email) errors.email = 'E-mail é obrigatório.';
+    if (!values.username) errors.username = 'Nome de usuário é obrigatório.';
+    if (!values.phone) errors.phone = 'Telefone é obrigatório.';
+    else if (!/^\d{10,11}$/.test(values.phone)) errors.phone = 'Telefone inválido.';
+    if (!values.password) errors.password = 'Senha é obrigatória.';
+    if (!isLogin && values.password !== values.confirmPassword) errors.confirmPassword = 'As senhas não coincidem.';
 
-  
-    const phoneNumber = values.phoneNumber.replace(/\D/g, ''); 
-    if (phoneNumber.length < 10 || phoneNumber.length > 15) {
-      errors.phoneNumber = 'O número de telefone deve conter entre 10 e 15 dígitos.';
+    if (!isClientRegistration) {
+      if (!values.salary) errors.salary = 'Salário é obrigatório.';
+      else if (isNaN(values.salary)) errors.salary = 'O salário deve ser um número válido.';
+      if (!values.role) errors.role = 'Cargo é obrigatório.';
     }
-
- 
-    if (!values.email) {
-      errors.email = 'E-mail é obrigatório.';
-    }
-    if (!values.password) {
-      errors.password = 'Senha é obrigatória.';
-    }
-    if (!isLogin && values.password !== values.confirmPassword) {
-      errors.confirmPassword = 'As senhas não coincidem.';
-    }
-
     return errors;
   };
 
-  const handleEdit = (client) => {
-    setCurrentClient(client);
-    setIsLogin(false);
+  const toggleForm = () => {
+    setIsLogin(!isLogin);
+    setCurrentClient(null);
+    setErrorMessage('');
   };
 
-  const handleDelete = (id) => {
-    const updatedClients = clients.filter(client => client.id !== id);
-    setClients(updatedClients);
-    setSuccessMessage('Cliente excluído com sucesso');
-    setTimeout(() => setSuccessMessage(''), 3000);
+  const toggleRegistrationType = (isClient) => {
+    setIsClientRegistration(isClient);
+    setErrorMessage('');
   };
 
   return (
     <div className="main-container">
-      <FiAlignJustify className="menu-toggle-icon" onClick={toggleMenu} />
-
-      {showMenu && (
-        <div className="vertical-menu">
-          <ul>
-            <li title="Login" onClick={() => router.push('../clientes')}>
-              <FiUser className="menu-icon-item" />
-            </li>
-            <li title="Reserve a sua Mesa" onClick={() => router.push('../mesas')}>
-              <LiaChairSolid className="menu-icon-item" />
-            </li>
-            <li title="Bebidas" onClick={() => router.push('../bebidas')}>
-              <BiDrink className="menu-icon-item" />
-            </li>
-            <li title="Pedido" onClick={() => router.push('../pedidos')}>
-              <FaShoppingCart className="menu-icon-item" />
-            </li>
-            <li title="Funcionarios"onClick={() => router.push('../funcionarios')} >
-              <AiOutlineTeam className="menu-icon-item" />
-            </li>
-          </ul>
-        </div>
-      )}
-
       <div className="logo-container" onClick={() => router.push('/')}>
         <img src='https://img.icons8.com/?size=100&id=jnZk3TAlyedN&format=png&color=FAB005' alt="Logo do Bar" className="logo" />
       </div>
@@ -140,79 +103,93 @@ const Client = () => {
       {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       <div className="content-wrapper">
-        <h1>{isLogin ? 'Login' : 'Cadastro'}</h1>
+        <h1>{isLogin ? 'Login' : isClientRegistration ? 'Cadastro de Cliente' : 'Cadastro de Funcionário'}</h1>
+
+        <div className="button-container">
+          {!isLogin && (
+            <>
+              <button
+                type="button"
+                onClick={() => toggleRegistrationType(true)}
+                className={isClientRegistration ? 'active' : ''}
+              >
+                Cadastro de Cliente
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleRegistrationType(false)}
+                className={!isClientRegistration ? 'active' : ''}
+              >
+                Cadastro de Funcionário
+              </button>
+            </>
+          )}
+        </div>
+
         <Formik
           initialValues={{
+            name: currentClient ? currentClient.name : '',
             email: currentClient ? currentClient.email : '',
+            username: currentClient ? currentClient.username : '',
+            phone: currentClient ? currentClient.phone : '',
+            salary: currentClient ? currentClient.salary : '',
+            role: currentClient ? currentClient.role : '',
             password: '',
             confirmPassword: '',
-            phoneNumber: currentClient ? currentClient.phoneNumber : ''
           }}
           onSubmit={handleSubmit}
         >
-          {({ values, setFieldValue }) => (
+          {({ values }) => (
             <Form>
+              <Field type="text" name="name" placeholder="Nome Completo" required />
+              <ErrorMessage name="name" component="div" className="error-message" />
+
               <Field type="email" name="email" placeholder="E-mail" required />
               <ErrorMessage name="email" component="div" className="error-message" />
+
+              <Field type="text" name="username" placeholder="Nome de Usuário" required />
+              <ErrorMessage name="username" component="div" className="error-message" />
+
+              <Field type="text" name="phone" placeholder="Telefone" required />
+              <ErrorMessage name="phone" component="div" className="error-message" />
+
               <Field type="password" name="password" placeholder="Senha" required />
               <ErrorMessage name="password" component="div" className="error-message" />
+
               {!isLogin && (
                 <>
                   <Field type="password" name="confirmPassword" placeholder="Repetir Senha" required />
                   <ErrorMessage name="confirmPassword" component="div" className="error-message" />
-                  <Field 
-                    type="text" 
-                    name="phoneNumber" 
-                    placeholder="Número de Telefone" 
-                    required 
-                    onChange={e => setFieldValue('phoneNumber', mask(e.target.value, '(99) 99999-9999'))} // Aplica a máscara
-                  />
-                  <ErrorMessage name="phoneNumber" component="div" className="error-message" />
                 </>
               )}
-              <button type="submit">{isLogin ? 'Entrar' : currentClient ? 'Atualizar' : 'Cadastrar'}</button>
+
+              {!isClientRegistration && (
+                <>
+                  <Field type="number" name="salary" placeholder="Salário" required />
+                  <ErrorMessage name="salary" component="div" className="error-message" />
+
+                  <Field as="select" name="role" required>
+                    <option value="">Selecione o Cargo</option>
+                    <option value="gerente">Gerente</option>
+                    <option value="funcionario">Funcionário</option>
+                  </Field>
+                  <ErrorMessage name="role" component="div" className="error-message" />
+                </>
+              )}
+
+              <button type="submit">
+                {isLogin ? 'Entrar' : currentClient ? 'Atualizar' : isClientRegistration ? 'Cadastrar Cliente' : 'Cadastrar Funcionário'}
+              </button>
             </Form>
           )}
         </Formik>
+
         <p>
           {isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?'}{' '}
           <span onClick={toggleForm} style={{ color: '#FFA500', cursor: 'pointer' }}>
             {isLogin ? 'Cadastre-se' : 'Faça Login'}
           </span>
         </p>
-
-  
-        <div className="client-list">
-          <h2>Lista de Clientes</h2>
-          {clients.length === 0 ? (
-            <p style={{ fontSize: '14px' }}>Nenhum cliente cadastrado.</p>
-          ) : (
-            <ul>
-              {clients.map((client) => (
-                <li key={client.id}>
-                  <span>{client.email} - {client.phoneNumber}</span>
-                  <button onClick={() => handleEdit(client)} className="edit-button">Editar</button>
-                  <button onClick={() => handleDelete(client.id)} className="delete-button">Excluir</button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
-
-
-      <div className="footer mt-4">
-      <h3 className="info-list">
-    <a href="../Informacoes" className="info-list">Informações</a> </h3>
-       <ul className="info-list">
-          <li>Ano de Fundação: 2024</li>
-          <li>Redes Sociais:</li>
-          <li>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
-            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          </li>
-        </ul>
       </div>
     </div>
   );

@@ -73,6 +73,7 @@
   flex-wrap: wrap; 
   gap: 0; 
   justify-content: flex-start; 
+  background-color: #000000;
 }
 
 .bebida-card {
@@ -127,6 +128,9 @@
   color: #ffa500; 
   padding: 5px 10px; 
   transition: background-color 0.3s;
+}
+.mb-2 text-muted{
+  color: #ffa500;
 }
 
 .bebida-botoes .btn:hover {

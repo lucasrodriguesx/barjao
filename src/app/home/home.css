@@ -138,3 +138,7 @@ body {
 .info-list li a:hover {
   color: #ff6600; 
 }
+.bebida-card {
+  width: 250px;
+  background-color: #5f5b5b; 
+}

@@ -12,12 +12,14 @@ import { LiaChairSolid } from "react-icons/lia";
 import { BiDrink } from "react-icons/bi";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { mask } from 'remask';
-import Home from '../home/home';
+import { useAuth } from '../../context/AuthContext'; // Importando o contexto de autenticação
 import BebidasValidador from '../../validators/BebidasValidator';
 import './bebidas.css';
+import Home from '../home/home';
 
 const Bebidas = () => {
   const router = useRouter();
+  const { user, logout } = useAuth(); // Pegando o usuário do contexto
   const [showMenu, setShowMenu] = useState(false);
   const [bebidas, setBebidas] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -35,15 +37,18 @@ const Bebidas = () => {
   const goToHome = () => {
     router.push('/'); 
   };
+
   const goToMesas = () => {
     router.push('../mesas');
   };
+
   const goToPedidos = () => {
     router.push('../pedidos'); 
-};
-const goToFuncionarios = () => {
-  router.push('../funcionarios'); 
-};
+  };
+
+  const goToFuncionarios = () => {
+    router.push('../funcionarios'); 
+  };
 
   useEffect(() => {
     const dados = JSON.parse(localStorage.getItem('bebidas')) || [];
@@ -105,6 +110,13 @@ const goToFuncionarios = () => {
             alt="Logo do Bar"
           />
         </div>
+        {/* Exibindo o nome do usuário no canto superior direito */}
+        {user && (
+          <div className="user-info">
+            <span className="username">{user}</span>
+            <Button variant="outline-danger" onClick={logout}>Logout</Button>
+          </div>
+        )}
       </div>
 
       <h1 className="smaller-title mt-4">Bebidas</h1>
@@ -112,7 +124,7 @@ const goToFuncionarios = () => {
       {showMenu && (
         <div className="menu">
           <ul>
-          <li title="Login" onClick={goToClientes}> 
+            <li title="Login" onClick={goToClientes}> 
               <FiUser className="menu-icon-item" />
             </li>
             <li title="Reserve a sua Mesa" onClick={goToMesas}>
@@ -187,9 +199,9 @@ const goToFuncionarios = () => {
         {bebidas.map((item) => (
           <div className="col-lg-2" key={item.id}>
             <Card className="bebida-card">
-              <Card.Img variant="top" src={item.imagem} alt={item.nome} />
+              <Card.Img variant="top" src={item.imagem} alt={item.nome} className="bebida-card" />
               <Card.Body>
-                <Card.Title>{item.nome}</Card.Title>
+                <Card.Title >{item.nome}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{item.tipo}</Card.Subtitle>
                 <Card.Text>{item.descricao}</Card.Text>
                 <Card.Text>{item.preco}</Card.Text>
@@ -200,9 +212,6 @@ const goToFuncionarios = () => {
                   <Button variant="info" className="ms-2" onClick={() => handleEdit(item)}>
                     <FaRegEdit /> Editar
                   </Button>
-                  <Button variant="success" className="ms-2" onClick={handlePedido}>
-                    Pedir
-                  </Button>
                 </div>
               </Card.Body>
             </Card>
@@ -210,28 +219,12 @@ const goToFuncionarios = () => {
         ))}
       </div>
 
-      <ToastContainer position="bottom-end" className="p-3">
+      {/* Toast de confirmação */}
+      <ToastContainer position="top-center" className="mt-4">
         <Toast show={showToast} onClose={() => setShowToast(false)} delay={2000} autohide>
-          <Toast.Header>
-            <strong className="me-auto">Pedido</strong>
-          </Toast.Header>
-          <Toast.Body>Pedido concluído com sucesso!</Toast.Body>
+          <Toast.Body>Pedido Adicionado!</Toast.Body>
         </Toast>
       </ToastContainer>
-
-      <div className="footer mt-4">
-      <h3 className="info-list">
-      <a href="../Informacoes" className="info-list">Informações</a> </h3>
-        <ul className="info-list">
-          <li>Ano de Fundação: 2024</li>
-          <li>Redes Sociais:</li>
-          <li>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
-            <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          </li>
-        </ul>
-      </div>
     </div>
   );
 };

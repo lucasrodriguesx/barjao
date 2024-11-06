@@ -208,4 +208,72 @@ button:hover {
 .info-wa{
     text-align: center;
 }
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #FAB005;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button.active {
+    background-color: #F56C00;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 12px 25px;
+    background-color: #FAB005;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
+  
+  button.active {
+    background-color: #F56C00;
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+  }
+  
+  button.active {
+    background-color: #F56C00;
+  }
   

@@ -1,0 +1,170 @@
+
+.admin-container {
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ffa500;
+  }
+  
+  .clients-list {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .client-card {
+    background-color: #000000;
+    border: 1px solid #ffa500;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .client-card p {
+    margin: 5px 0;
+    font-size: 1rem;
+  }
+  
+  .back-button {
+    margin-top: 20px;
+    background-color: #ffa500;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .back-button:hover {
+    background-color: #e69500;
+  }
+  .texto {
+    color: #ffa500;
+  }
+  .admin-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .records-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .records-table th, .records-table td {
+    border: 1px solid #ffa500;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .records-table th {
+    background-color: #000000;
+  }
+  
+  .records-table tr:nth-child(even) {
+    background-color: #000000;
+  }
+  
+  button.back-button {
+    background-color: #FAB005;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  button.back-button:hover {
+    background-color: #F56C00;
+  }
+  
+  h1, h2 {
+    color: #F56C00;
+  }
+  
+  h2 {
+    margin-top: 30px;
+  }
+  
+  .clients-section, .employees-section {
+    margin-bottom: 30px;
+  }
+  .tr {
+    color: #ffa500;
+  }
+  button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #FAB005;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #F56C00;
+  }
+.edit-form {
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffa500; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  .edit-form h2 {
+    text-align: center;
+    color: #ffa500; 
+  }
+  
+  
+  .edit-form input, .edit-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ffa500; 
+    background-color: black;
+    color: #ffa500;
+  }
+  
+  .edit-form button {
+    background-color: #ffa500; 
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .edit-form button:hover {
+    background-color: #555; /* Cor do botão quando em hover */
+  }
+  
+  /* Estilos para o botão de cancelar */
+  .edit-form button[type="button"] {
+    background-color: #ffa500;
+    color: #000000;
+    margin-top: 10px;
+  }
+  
+  .edit-form button[type="button"]:hover {
+    background-color: #555;
+  }
+  

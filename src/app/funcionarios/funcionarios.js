@@ -154,7 +154,7 @@ const Funcionarios = () => {
                       {...field}
                       className="form-control"
                       onChange={(e) => {
-                        const rawValue = handleMask(e.target.value, 'R$ 9999,99'); // Modifiquei a máscara para aceitar até 2 casas decimais
+                        const rawValue = handleMask(e.target.value, 'R$ 9999,99');
                         setFieldValue('salario', rawValue);
                       }}
                     />
