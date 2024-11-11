@@ -1,0 +1,203 @@
+/* Finalizar página */
+body {
+    background-color: black;
+    color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .finalizar {
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .logo {
+    max-width: 50px;
+    cursor: pointer;
+  }
+  
+  .logo:hover {
+    transform: scale(1.1);
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .username {
+    color: orange;
+    font-size: 1.2rem;
+  }
+  
+  button {
+    background-color: black;
+    color: orange;
+    border: 2px solid orange;
+    padding: 5px 15px;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  button:hover {
+    background-color: orange;
+    color: black;
+  }
+  
+  /* Estilo do formulário de pedidos */
+ /* Estilo para o formulário de pedidos */
+.pedido-form {
+    background-color: black;
+    border: 2px solid orange;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    color: orange;
+  }
+  
+  .pedido-form h4 {
+    color: orange;
+    text-align: center;
+  }
+  
+  .pedido-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .pedido-form .form-control {
+    background-color: #333;
+    border: 1px solid orange;
+    color: orange;
+  }
+  
+  .pedido-form .form-control:focus {
+    background-color: #222;
+    border-color: orange;
+    color: orange;
+  }
+  
+  .pedido-form .form-label {
+    color: orange;
+  }
+  
+  .pedido-form .btn-primary {
+    background-color: orange;
+    border: none;
+    color: black;
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+  }
+  
+  .pedido-form .btn-primary:hover {
+    background-color: #ff8c00;
+  }
+  
+  
+  /* Modal de pagamento estilizado */
+  .modal-content {
+    background-color: black;
+    color: orange;
+    border: 2px solid orange;
+  }
+  
+  .modal-header, .modal-footer {
+    border-bottom: none;
+  }
+  
+  .cartao-form, .pix-section {
+    color: orange;
+    background-color: black;
+    padding: 10px;
+    border: 2px solid orange;
+    border-radius: 10px;
+  }
+  
+  .cartao-form h4, .pix-section h4 {
+    color: orange;
+  }
+  
+  .cartao-form input, .pix-section input {
+    background-color: #222;
+    color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .custom-button {
+    background-color: black;
+    color: orange;
+    border: 2px solid orange;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .custom-button:hover {
+    background-color: orange;
+    color: black;
+  }
+  
+  /* Botões de pagamento */
+  .opcoes-pagamento .btn-primary, .opcoes-pagamento .btn-success {
+    background-color: black;
+    color: orange;
+    border: 2px solid orange;
+  }
+  
+  .opcoes-pagamento .btn-primary:hover, .opcoes-pagamento .btn-success:hover {
+    background-color: orange;
+    color: black;
+  }
+  .pagamento-cards {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Aproxima os cards */
+    margin-top: 20px;
+  }
+  
+  .pagamento-card {
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+    background-color: black; /* Fundo preto */
+    border: 2px solid orange; /* Borda laranja */
+    color: orange; /* Textos laranja */
+    transition: transform 0.2s;
+  }
+  
+  .pagamento-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .header .username,
+  .finalizar h1,
+  .finalizar h3,
+  .card-title,
+  .modal-title,
+  .modal-body p {
+    color: orange; /* Deixa todos esses elementos com a cor laranja */
+  }
+  
+  .confirmacao {
+    margin-top: 20px;
+    color: green;
+    font-weight: bold;
+  }
+
+
+  

@@ -18,6 +18,17 @@
 }
 
 .logo-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.logo {
+  max-width: 50px;
   cursor: pointer;
 }
 
@@ -164,4 +175,39 @@
 
 .footer .info-list li {
   color: #ffa500;
+}
+.footer-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  color: #ffa500;
+  
+}
+.custom-button {
+  background-color: black;
+  color: orange;
+  border: 2px solid orange;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: orange;
+  color: black;
+}
+
+.finalizar-pedido-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.bottom-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 200px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
 }

@@ -6,6 +6,8 @@ import Pedidos from './pedidos/pedidos';
 import Funcionarios from './funcionarios/funcionarios';
 import Bebidas from './bebidas/bebidas';
 import Informacoes from './Informacoes/informacoes';
+import Finalizar from './finalizar/finalizar';
+
 
 const Page = () => {
   return (

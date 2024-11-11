@@ -5,9 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Card, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { FaPlusCircle, FaRegEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import { FiAlignJustify, FiUser } from "react-icons/fi";
+import { FiAlignJustify } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
-import { AiOutlineTeam } from "react-icons/ai";
 import { LiaChairSolid } from "react-icons/lia";
 import { BiDrink } from "react-icons/bi";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -79,7 +78,10 @@ const Bebidas = () => {
 
   const handleMask = (value, maskPattern) => mask(value, maskPattern);
 
-  const handlePedido = () => {
+  const handlePedido = (item) => {
+    let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+    pedidos.push(item);
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2000);
   };
@@ -124,20 +126,11 @@ const Bebidas = () => {
       {showMenu && (
         <div className="menu">
           <ul>
-            <li title="Login" onClick={goToClientes}> 
-              <FiUser className="menu-icon-item" />
-            </li>
             <li title="Reserve a sua Mesa" onClick={goToMesas}>
               <LiaChairSolid className="menu-icon-item" />
             </li>
-            <li title="Bebidas" onClick={goToBebidas}>
-              <BiDrink className="menu-icon-item" />
-            </li>
             <li title="Pedido" onClick={goToPedidos}>
               <FaShoppingCart className="menu-icon-item" />
-            </li>
-            <li title="Funcionarios" onClick={goToFuncionarios}>
-              <AiOutlineTeam className="menu-icon-item" />
             </li>
           </ul>
         </div>
@@ -212,6 +205,9 @@ const Bebidas = () => {
                   <Button variant="info" className="ms-2" onClick={() => handleEdit(item)}>
                     <FaRegEdit /> Editar
                   </Button>
+                  <Button variant="success" className="ms-2" onClick={() => handlePedido(item)}>
+                    <BiDrink /> Pedir
+                  </Button>
                 </div>
               </Card.Body>
             </Card>
@@ -219,12 +215,20 @@ const Bebidas = () => {
         ))}
       </div>
 
-      {/* Toast de confirmação */}
-      <ToastContainer position="top-center" className="mt-4">
-        <Toast show={showToast} onClose={() => setShowToast(false)} delay={2000} autohide>
-          <Toast.Body>Pedido Adicionado!</Toast.Body>
+      {/* Botão flutuante para ir para Mesas */}
+      <div className="bottom-buttons">
+      <Button onClick={goToMesas} className="custom-button finalizar-pedido-button">
+     Ir para Mesas
+  </Button>
+      </div>
+
+      
+      <ToastContainer position="top-center">
+        <Toast show={showToast}>
+          <Toast.Body>Pedido Adicionado com Sucesso!</Toast.Body>
         </Toast>
       </ToastContainer>
+
     </div>
   );
 };

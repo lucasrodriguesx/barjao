@@ -1,0 +1,1 @@
+O validator do Registro ja esta no registro.js

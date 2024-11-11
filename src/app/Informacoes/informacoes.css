@@ -34,16 +34,21 @@ body {
 .content {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center; /* Centraliza o conteúdo */
+    flex-direction: column; /* Faz os itens ficarem em coluna */
     margin: 20px;
 }
 
-.chart-container, .calendar-container {
-    width: 50%; 
+.chart-container {
+    width: 60%; /* Controla o tamanho do gráfico */
     padding: 20px;
+    margin-bottom: 30px;
 }
 
-
+.chart-container canvas {
+    width: 100%; /* Garante que o gráfico ocupe todo o espaço */
+    height: 300px;
+}
 
 .footer {
     margin-top: 20px;
@@ -72,7 +77,6 @@ body {
     color: #ff6600; 
 }
 
-
 .day-indicator {
     display: flex;
     justify-content: center;
@@ -93,11 +97,6 @@ body {
     border-radius: 50%;
     width: 20px;
     height: 20px;
-}
-
-.chart-container, .calendar-container {
-    width: 50%;
-    padding: 10px;
 }
 
 .chart {
@@ -132,12 +131,15 @@ body {
     border: 2px solid #ffa500; 
     margin-top: 10px; 
 }
+
 .event-info{
     color: #ffa500;
 }
+
 .charttext{
     color: #ffa500;
 }
+
 .fc-daygrid-day-number {
     color: #FFA500; 
 }
@@ -145,6 +147,7 @@ body {
 .fc-daygrid-day {
     background-color: black;
 }
+
 .fc-daygrid-week-header {
     color: #FFA500; 
     font-weight: bold; 
@@ -153,4 +156,6 @@ body {
 .fc-daygrid-header {
     background-color: black; 
 }
-
+.smaller-title {
+   text-align: center;
+}

@@ -26,6 +26,10 @@ body {
   width: 80px;
 }
 
+.logo:hover {
+  transform: scale(1.1);
+}
+
 .smaller-title {
   font-size: 1.5rem;
   color: orange;
@@ -141,4 +145,40 @@ body {
 .bebida-card {
   width: 250px;
   background-color: #5f5b5b; 
+}
+.custom-button {
+  background-color: black;
+  color: orange;
+  border: 2px solid orange;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: orange;
+  color: black;
+}
+
+.finalizar-pedido-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.bottom-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 200px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  background-color: #000; 
+  flex-direction: column; 
 }

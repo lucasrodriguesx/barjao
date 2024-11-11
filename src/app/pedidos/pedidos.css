@@ -9,11 +9,18 @@ body {
   text-align: center;
 }
 
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+}
+.smaller-title {
+  font-size: 1.5rem;
+  color: orange;
+  margin-top: 10px;
+  right: 200px;
 }
 
 .logo-container {
@@ -24,18 +31,17 @@ body {
 .logo {
   width: 80px;
 }
-
-.smaller-title {
-  font-size: 1.5rem;
-  color: orange;
-  margin-top: 10px;
+.logo:hover {
+  transform: scale(1.1);
 }
+
 
 .menu-icon {
   font-size: 2rem;
   cursor: pointer;
   color: orange;
 }
+
 
 .menu {
   position: absolute; 
@@ -82,7 +88,9 @@ body {
   font-size: 0.9rem; 
   background: rgba(0, 0, 0, 0.8); 
   padding: 3px 5px; 
+  border-radius: 3px; 
 }
+
 
 .footer {
   margin-top: 20px;
@@ -91,7 +99,104 @@ body {
 .info-list {
   list-style-type: none; 
   padding: 0; 
-  color:#ffa500;
+  color:#ffa500; 
+  text-align: center; 
+}
+
+.info-list li {
+  margin: 5px 0; 
+  font-size: 1rem; 
+}
+
+.info-list li a {
+  color: orange; 
+  text-decoration: none; 
+  transition: color 0.3s; 
+}
+
+.info-list li a:hover {
+  color: #ff6600; 
+}
+.custom-button {
+  background-color: black;
+  color: orange;
+  border: 2px solid orange;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: orange;
+  color: black;
+}
+
+.finalizar-pedido-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+/* Estilo para os ícones */
+.edit-icon, .delete-icon {
+  background-color: #000; 
+  color: #FFA500; 
+  border-radius: 50%; 
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.edit-icon:hover, .delete-icon:hover {
+  background-color: #000000; /* Fundo preto mais escuro no hover */
+}
+/* Estilo do modal */
+.modal-content {
+  background-color: #000; /* Fundo preto do modal */
+  color: #FFA500; /* Cor do texto laranja */
+}
+
+/* Estilo do título do modal */
+.modal-title {
+  color: #FFA500; /* Título laranja */
+}
+
+/* Estilo para os campos do formulário */
+.formulario .form-control {
+  background-color: #000; /* Fundo preto */
+  color: #FFA500; /* Texto laranja */
+  border: 2px solid #FFA500; /* Borda laranja */
+}
+
+.formulario .form-control:focus {
+  background-color: #222; /* Cor de fundo mais escura ao focar */
+  color: #FFA500; /* Texto laranja ao focar */
+  border-color: #FFA500; /* Borda laranja ao focar */
+}
+
+.formulario label {
+  color: #FFA500; /* Cor das labels em laranja */
+}
+.bottom-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 200px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+.centered-title {
+  text-align: center;
+}
+.formulario {
+  color: #FFA500;
+}
+.footer {
+  margin-top: auto;
+}
+
+.info-list {
+  list-style-type: none; 
+  padding: 0; 
+  color:#ffa500; 
   text-align: center; 
 }
 

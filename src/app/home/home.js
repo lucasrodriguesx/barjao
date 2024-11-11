@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Button, Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './home.css';
 import { FiAlignJustify } from "react-icons/fi";
@@ -30,7 +30,9 @@ const Home = () => {
   const goToHome = () => router.push('/');
   const goToMesas = () => router.push('../mesas');
   const goToPedidos = () => router.push('../pedidos');
- 
+
+
+  const username = user ? user.username : '';
 
   return (
     <div className="home">
@@ -43,7 +45,12 @@ const Home = () => {
             alt="Logo do Bar"
           />
         </div>
-        {user && <span className="user-name">Bem-vindo, {user}!</span>}
+        {user && (
+          <div className="user-info">
+            <span className="username">{user}</span>
+            <Button variant="outline-danger" onClick={logout}>Logout</Button>
+          </div>
+        )}
       </div>
 
       <h1 className="smaller-title mt-4">Bem-vindo ao Bar!</h1>

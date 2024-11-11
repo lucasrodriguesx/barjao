@@ -12,8 +12,6 @@ const Client = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [clients, setClients] = useState([]);
-  const [currentClient, setCurrentClient] = useState(null);
-  const [isClientRegistration, setIsClientRegistration] = useState(true);
   const { login } = useAuth();
 
   useEffect(() => {
@@ -46,19 +44,10 @@ const Client = () => {
         setErrorMessage('Nome de usuário ou senha incorretos');
       }
     } else {
-      if (currentClient) {
-        const updatedClients = clients.map(client =>
-          client.id === currentClient.id ? { ...client, ...values } : client
-        );
-        setClients(updatedClients);
-        setCurrentClient(null);
-        setSuccessMessage('Cliente atualizado com sucesso');
-      } else {
-        const newClient = { ...values, id: Date.now(), role: isClientRegistration ? 'cliente' : 'funcionario' };
-        setClients(prevClients => [...prevClients, newClient]);
-        setSuccessMessage(isClientRegistration ? 'Cadastro de cliente concluído com sucesso' : 'Cadastro de funcionário concluído com sucesso');
-        localStorage.setItem('currentClient', JSON.stringify(newClient));
-      }
+      const newClient = { ...values, id: Date.now(), role: 'cliente' };
+      setClients(prevClients => [...prevClients, newClient]);
+      setSuccessMessage('Cadastro de cliente concluído com sucesso');
+      localStorage.setItem('currentClient', JSON.stringify(newClient));
     }
 
     setTimeout(() => setSuccessMessage(''), 3000);
@@ -66,30 +55,22 @@ const Client = () => {
 
   const validateClient = async (values) => {
     const errors = {};
-    if (!values.name) errors.name = 'Nome é obrigatório.';
-    if (!values.email) errors.email = 'E-mail é obrigatório.';
     if (!values.username) errors.username = 'Nome de usuário é obrigatório.';
-    if (!values.phone) errors.phone = 'Telefone é obrigatório.';
-    else if (!/^\d{10,11}$/.test(values.phone)) errors.phone = 'Telefone inválido.';
     if (!values.password) errors.password = 'Senha é obrigatória.';
     if (!isLogin && values.password !== values.confirmPassword) errors.confirmPassword = 'As senhas não coincidem.';
 
-    if (!isClientRegistration) {
-      if (!values.salary) errors.salary = 'Salário é obrigatório.';
-      else if (isNaN(values.salary)) errors.salary = 'O salário deve ser um número válido.';
-      if (!values.role) errors.role = 'Cargo é obrigatório.';
+    if (!isLogin) {
+      if (!values.name) errors.name = 'Nome é obrigatório.';
+      if (!values.email) errors.email = 'E-mail é obrigatório.';
+      if (!values.phone) errors.phone = 'Telefone é obrigatório.';
+      else if (!/^\d{10,11}$/.test(values.phone)) errors.phone = 'Telefone inválido.';
     }
+    
     return errors;
   };
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
-    setCurrentClient(null);
-    setErrorMessage('');
-  };
-
-  const toggleRegistrationType = (isClient) => {
-    setIsClientRegistration(isClient);
     setErrorMessage('');
   };
 
@@ -103,37 +84,14 @@ const Client = () => {
       {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       <div className="content-wrapper">
-        <h1>{isLogin ? 'Login' : isClientRegistration ? 'Cadastro de Cliente' : 'Cadastro de Funcionário'}</h1>
-
-        <div className="button-container">
-          {!isLogin && (
-            <>
-              <button
-                type="button"
-                onClick={() => toggleRegistrationType(true)}
-                className={isClientRegistration ? 'active' : ''}
-              >
-                Cadastro de Cliente
-              </button>
-              <button
-                type="button"
-                onClick={() => toggleRegistrationType(false)}
-                className={!isClientRegistration ? 'active' : ''}
-              >
-                Cadastro de Funcionário
-              </button>
-            </>
-          )}
-        </div>
+        <h1>{isLogin ? 'Login' : 'Cadastro de Cliente'}</h1>
 
         <Formik
           initialValues={{
-            name: currentClient ? currentClient.name : '',
-            email: currentClient ? currentClient.email : '',
-            username: currentClient ? currentClient.username : '',
-            phone: currentClient ? currentClient.phone : '',
-            salary: currentClient ? currentClient.salary : '',
-            role: currentClient ? currentClient.role : '',
+            name: '',
+            email: '',
+            username: '',
+            phone: '',
             password: '',
             confirmPassword: '',
           }}
@@ -141,55 +99,47 @@ const Client = () => {
         >
           {({ values }) => (
             <Form>
-              <Field type="text" name="name" placeholder="Nome Completo" required />
-              <ErrorMessage name="name" component="div" className="error-message" />
-
-              <Field type="email" name="email" placeholder="E-mail" required />
-              <ErrorMessage name="email" component="div" className="error-message" />
-
-              <Field type="text" name="username" placeholder="Nome de Usuário" required />
-              <ErrorMessage name="username" component="div" className="error-message" />
-
-              <Field type="text" name="phone" placeholder="Telefone" required />
-              <ErrorMessage name="phone" component="div" className="error-message" />
-
-              <Field type="password" name="password" placeholder="Senha" required />
-              <ErrorMessage name="password" component="div" className="error-message" />
-
-              {!isLogin && (
+              {isLogin ? (
                 <>
+                  <Field type="text" name="username" placeholder="Nome de Usuário" required />
+                  <ErrorMessage name="username" component="div" className="error-message" />
+                  <Field type="password" name="password" placeholder="Senha" required />
+                  <ErrorMessage name="password" component="div" className="error-message" />
+                </>
+              ) : (
+                <>
+                  <Field type="text" name="name" placeholder="Nome Completo" required />
+                  <ErrorMessage name="name" component="div" className="error-message" />
+                  <Field type="email" name="email" placeholder="E-mail" required />
+                  <ErrorMessage name="email" component="div" className="error-message" />
+                  <Field type="text" name="username" placeholder="Nome de Usuário" required />
+                  <ErrorMessage name="username" component="div" className="error-message" />
+                  <Field type="text" name="phone" placeholder="Telefone" required />
+                  <ErrorMessage name="phone" component="div" className="error-message" />
+                  <Field type="password" name="password" placeholder="Senha" required />
+                  <ErrorMessage name="password" component="div" className="error-message" />
                   <Field type="password" name="confirmPassword" placeholder="Repetir Senha" required />
                   <ErrorMessage name="confirmPassword" component="div" className="error-message" />
                 </>
               )}
 
-              {!isClientRegistration && (
-                <>
-                  <Field type="number" name="salary" placeholder="Salário" required />
-                  <ErrorMessage name="salary" component="div" className="error-message" />
-
-                  <Field as="select" name="role" required>
-                    <option value="">Selecione o Cargo</option>
-                    <option value="gerente">Gerente</option>
-                    <option value="funcionario">Funcionário</option>
-                  </Field>
-                  <ErrorMessage name="role" component="div" className="error-message" />
-                </>
-              )}
-
-              <button type="submit">
-                {isLogin ? 'Entrar' : currentClient ? 'Atualizar' : isClientRegistration ? 'Cadastrar Cliente' : 'Cadastrar Funcionário'}
-              </button>
+              <button type="submit">{isLogin ? 'Entrar' : 'Cadastrar Cliente'}</button>
             </Form>
           )}
         </Formik>
 
-        <p>
-          {isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?'}{' '}
-          <span onClick={toggleForm} style={{ color: '#FFA500', cursor: 'pointer' }}>
-            {isLogin ? 'Cadastre-se' : 'Faça Login'}
-          </span>
-        </p>
+        <div className="links-container">
+          <p>
+            {isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?'}{' '}
+            <span onClick={toggleForm} style={{ color: '#FFA500', cursor: 'pointer' }}>
+              {isLogin ? 'Cadastre-se' : 'Faça Login'}
+            </span>
+          </p>
+          <div className="additional-links">
+            <a href="/registros" className="additional-link">Registros</a> | 
+            <a href="/Informacoes" className="additional-link"> Informações</a>
+          </div>
+        </div>
       </div>
     </div>
   );
