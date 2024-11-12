@@ -94,7 +94,8 @@ const Pedidos = () => {
     }
   };
 
-  const handleDeletePedido = () => {
+  const handleDeletePedido = (e) => {
+    e.stopPropagation(); // Impede que o evento clique se propague para o li
     if (selectedPedido !== null) {
       const newPedidos = pedidos.filter((_, index) => index !== selectedPedido);
       localStorage.setItem('pedidos', JSON.stringify(newPedidos));
@@ -159,7 +160,7 @@ const Pedidos = () => {
                 <li key={index} onClick={() => handleSelectPedido(pedido, index)}>
                   {pedido.nome || pedido.title} - {pedido.preco || pedido.valor}
                   <FaRegEdit onClick={() => handleSelectPedido(pedido, index)} className="edit-icon" />
-                  <MdDelete onClick={() => handleDeletePedido()} className="delete-icon" />
+                  <MdDelete onClick={(e) => handleDeletePedido(e)} className="delete-icon" />
                 </li>
               ))}
             </ul>

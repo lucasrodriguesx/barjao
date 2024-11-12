@@ -1,19 +1,14 @@
-import * as yup from 'yup';
+import * as Yup from 'yup';
 
-const schema = yup.object().shape({
-  nome: yup.string().required("O nome da bebida é obrigatório."),
-  descricao: yup.string().required("A descrição da bebida é obrigatória."),
-  imagem: yup.string().url("A URL da imagem deve ser um URL válido.").required("A URL da imagem é obrigatória."),
+const BebidasValidador = Yup.object().shape({
+  nome: Yup.string().required('Nome é obrigatório'),
+  tipo: Yup.string().required('Tipo é obrigatório'),
+  preco: Yup.string()
+    .required('Preço é obrigatório')
+    // Valida o formato do valor, incluindo o símbolo 'R$' e a vírgula para centavos
+    .matches(/^R\$\s\d{1,4},\d{2}$/, 'Formato do preço deve ser R$ 9999,99'),
+  descricao: Yup.string().required('Descrição é obrigatória'),
+  imagem: Yup.string().url('URL inválida').required('URL da imagem é obrigatória'),
 });
 
-const BebidasValidator = {
-  validate(bebida) {
-    return schema.validate(bebida, { abortEarly: false }) 
-      .then(() => null)
-      .catch(err => {
-        return err.errors.join(", ");
-      });
-  },
-};
-
-export default BebidasValidator;
+export default BebidasValidador;

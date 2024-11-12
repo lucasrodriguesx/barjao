@@ -1,1 +1,1 @@
-Fiz um campos Funcionarios, so para confirmar mesmo, vai que o senhor nao aceite um dos meus campos principais.
+Esse Cadastro vai ficar escondido, para nao ficar repetitivo 

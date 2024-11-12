@@ -76,10 +76,6 @@ const Client = () => {
 
   return (
     <div className="main-container">
-      <div className="logo-container" onClick={() => router.push('/')}>
-        <img src='https://img.icons8.com/?size=100&id=jnZk3TAlyedN&format=png&color=FAB005' alt="Logo do Bar" className="logo" />
-      </div>
-
       {successMessage && <div className="success-message">{successMessage}</div>}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
 

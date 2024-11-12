@@ -164,15 +164,31 @@ const Bebidas = () => {
                 <ErrorMessage name="descricao" component="div" className="text-danger" />
               </div>
               <div className="mb-3">
-                <label className="form-label">Preço</label>
-                <Field name="preco">
-                  {({ field }) => (
-                    <input
-                      {...field}
-                      className="form-control"
-                      onChange={(e) => setFieldValue('preco', handleMask(e.target.value, 'R$ 9999,99'))}
-                    />
-                  )}
+              <label className="form-label">Preço</label>
+<Field name="preco">
+  {({ field, form }) => (
+    <input
+      {...field}
+      className="form-control"
+      onChange={(e) => {
+        // Pega o valor do input
+        let value = e.target.value;
+
+        // Remove qualquer caractere não numérico e ponto
+        value = value.replace(/[^\d,\.]/g, '');
+
+        // Se houver ponto, transforma o primeiro ponto em vírgula (para decimal)
+        value = value.replace('.', ',');
+
+        // Formatar o valor, se necessário
+        const formattedValue = handleMask(value, 'R$ 999,99');
+        
+        // Atualiza o campo com o valor formatado
+        setFieldValue('preco', formattedValue);
+      }}
+      value={form.values.preco || ''}
+    />
+  )}
                 </Field>
                 <ErrorMessage name="preco" component="div" className="text-danger" />
               </div>
